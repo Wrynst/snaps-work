@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  
+
+<?!= include('css'); ?>
+<?!= include('hpcss'); ?> 
+
+
+  </head>
+  
+  
+  <body>
+    
+    <div class="my-tabs">
+      <nav class="tabs flex-container">
+       
+          <div class="is-active"><a href="#tab-zero">Leaderboards</a></div>
+          <div><a href="#tab-one">Bio</a></div>
+          <div><a href="#tab-two">Stats</a></div>
+          <div><a href="#tab-three">Fight!</a></div>
+       
+      </nav>
+        
+      <section class="tab-content is-active" id="tab-zero">
+        <?!= include('leaderboard'); ?>
+      </section>
+      <section class="tab-content" id="tab-one">
+        <?!= include('bio'); ?>
+      </section>
+      <section class="tab-content" id="tab-two">
+        <?!= include('stats'); ?>  
+        
+      </section>
+      <section class="tab-content" id="tab-three">
+      <?!= include('fight'); ?> 
+      
+      </section>
+      
+    </div>
+    <div>
+      
+    </div>
+  
+    <?!= include('js'); ?>
+    <?!= include('hpjs'); ?>
+  </body>
+</html>
+
+

@@ -1,0 +1,379 @@
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Cabin+Sketch|Fredericka+the+Great|Stylish|Sue+Ellen+Francisco|VT323&display=swap');
+
+
+.w3-stylish{
+font-family: 'Stylish', sans-serif;
+}
+.w3-vt323{
+font-family: 'VT323', monospace;
+}
+.w3-ftg{
+font-family: 'Fredericka the Great', cursive;
+}
+.w3-cabin{
+font-family: 'Cabin Sketch', cursive;
+}
+.w3-sue{
+font-family: 'Sue Ellen Francisco', cursive;
+}
+
+
+html * {  
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: all 0.45s ease;
+          transition: all 0.45s ease;
+          margin: 0;
+          
+}
+
+body {
+  color: rgba(0,0,0,0.87); 
+  font-size: 20px;
+  text-align: center;
+  height: 100vh;
+font-family: 'Sue Ellen Francisco', cursive;
+}
+
+nav{
+   background: url("https://arnold.systems/img/circle-house.png") contain no-repeat;
+  
+}
+p {
+ color: rgba(0,0,0,0.54);
+
+  font-size: 18px;
+  padding: 16px 16px 8px 16px;
+  cursor: default;
+}
+
+
+#table1{
+  display: block;
+}
+#tab-zero div{
+  
+
+}
+#tab-zero{
+  padding: 30px 0;
+  width: 100%;
+  margin: 0;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='84' height='16' viewBox='0 0 84 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M78 7V4h-2v3h-3v2h3v3h2V9h3V7h-3zM30 7V4h-2v3h-3v2h3v3h2V9h3V7h-3zM10 0h2v16h-2V0zm6 0h4v16h-4V0zM2 0h4v16H2V0zm50 0h2v16h-2V0zM38 0h2v16h-2V0zm28 0h2v16h-2V0zm-8 0h6v16h-6V0zM42 0h6v16h-6V0z' fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E") , linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1));
+  background-attachment: fixed;
+
+}
+#tab-one{
+
+  padding: 30px 0;
+  width: 100%;
+  margin: 0;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='84' height='16' viewBox='0 0 84 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M78 7V4h-2v3h-3v2h3v3h2V9h3V7h-3zM30 7V4h-2v3h-3v2h3v3h2V9h3V7h-3zM10 0h2v16h-2V0zm6 0h4v16h-4V0zM2 0h4v16H2V0zm50 0h2v16h-2V0zM38 0h2v16h-2V0zm28 0h2v16h-2V0zm-8 0h6v16h-6V0zM42 0h6v16h-6V0z' fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E") , linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1));
+  background-attachment: fixed;
+}
+
+#tab-two{
+  width: 100%;
+  margin: 0;
+  padding: 30px 0;
+  text-align: center;
+  background-image: url("data:image/svg+xml,%3Csvg width='44' height='12' viewBox='0 0 44 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 12v-2L0 0v10l4 2h16zm18 0l4-2V0L22 10v2h16zM20 0v8L4 0h16zm18 0L22 8V0h16z' fill='%23000000' fill-opacity='0.11' fill-rule='evenodd'/%3E%3C/svg%3E") , linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1)) ;
+  background-attachment: fixed;
+}
+
+#tab-three{
+  padding: 30px 0;
+  width: 100%;
+  margin: 0;
+  margin: auto;
+  background-color: #222222;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 900'%3E%3Cg fill-opacity='0.4'%3E%3Cpath fill='%23590108' d='M2063.4 728c 1344.5 1289.9-3870.2 1289.9-2526.8 0c 163.5-156.9 620.9-240.3 933.9-264.2c 206.9-15.8 451.8-15.8 658.8 0c 313 23.9 770.5 107.3 934.1 264.2z'/%3E%3Cpath fill='%2341151b' d='M1843.9 691.6c 280.4 588.3-2367.8 588.3-2087.8 0c 60-126.1 442.8-201.9 731.6-224.9c 195.1-15.6 429.4-15.6 624.5 0c 288.7 23 671.6 98.8 731.7 224.9z'/%3E%3Cpath fill='%234a1f24' d='M1665 662c-30 336.6-1699.8 336.6-1730 0c-9.1-101.7 306.7-170.2 570.9-192.2c 182.7-15.3 405.4-15.3 588.1 0c 264.1 22 580 90.5 571 192.2z'/%3E%3Cpath fill='%23642f33' d='M1516.4 637.3c-139.4 212.9-1293.2 212.9-1432.8 0c-53.7-82 202.4-143.4 441.6-164.4c 169.6-14.9 379.8-14.9 549.4 0c 239.2 21 495.4 82.4 441.8 164.4z'/%3E%3Cpath fill='%23654b50' d='M1390.9 616.5c-173.4 142.1-1008.4 142.1-1181.9 0c-80.5-65.9 122.9-120.4 336.9-140.2c 155.8-14.4 352.3-14.4 508 0c 214 19.8 417.5 74.3 337 140.2z'/%3E%3Cpath fill='%2394464a' d='M1283.7 598.7c-174.4 97.6-793 97.6-967.4 0c-94-52.6 63.2-100.3 251.7-118.7c 141.1-13.7 322.7-13.7 463.8 0c 188.5 18.4 345.8 66.1 251.9 118.7z'/%3E%3Cpath fill='%23895f62' d='M1190.9 583.3c-159.9 68-621.9 68-781.8 0c-97.6-41.5 19.8-82.6 182.7-99.4c 125.6-12.9 290.8-12.9 416.4 0c 162.8 16.8 280.2 57.9 182.7 99.4z'/%3E%3Cpath fill='%23a67678' d='M1109.8 569.9c-138.1 47.3-481.5 47.3-619.7 0c-93.7-32.1-10.1-66.7 127.1-81.7c 109.3-12 256.2-12 365.5 0c 137.1 15 220.7 49.6 127.1 81.7z'/%3E%3Cpath fill='%23bf7f82' d='M1038.4 558c-113.2 32.5-363.7 32.5-476.9 0c-84-24.1-28.4-52.3 83.1-65.3c 91.9-10.7 218.7-10.7 310.6 0c 111.5 13 167.2 41.2 83.2 65.3z'/%3E%3Cpath fill='%23bdb0b2' d='M975 547.5c-87.1 21.5-263 21.5-350.1 0c-70.1-17.3-36.5-39.2 49.4-49.9c 73.5-9.2 177.9-9.2 251.3 0c 85.9 10.8 119.5 32.6 49.4 49.9z'/%3E%3Cpath fill='%23db999a' d='M918.3 538.1c-61.2 13.3-175.6 13.3-236.8 0c-52.8-11.4-35.8-27 24.8-35.2c 53.9-7.2 133.1-7.2 187.1 0c 60.6 8.2 77.7 23.8 24.9 35.2z'/%3E%3Cpath fill='%23deb9ba' d='M867.4 529.7c-35.9 6.9-99 6.9-134.9 0c-33.1-6.4-26.9-15.7 8.9-20.9c 33.3-4.8 83.9-4.8 117.2 0c 35.7 5.2 41.8 14.5 8.8 20.9z'/%3E%3Cpath fill='%23fcf4f4' d='M821.3 522c-11.7 2-31.1 2-42.8 0c-11.4-2-10.7-5.1 1-6.9c 11.4-1.8 29.5-1.8 40.8 0c 11.7 1.8 12.4 4.9 1 6.9z'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
+
+
+}
+nav div {
+ 
+ 
+  padding: 10px;
+  
+}
+nav div a:hover {
+  text-shadow: 1px 2px 5px black;
+}
+
+nav div a {
+  text-decoration: none;
+  color: #26396b;
+  font-size: 20px;
+}
+
+nav div.is-active{
+  text-shadow: 2px 0 0 0 #ac9;
+  border-bottom: 3px ridge #4f5a74;
+}
+nav div a ~ a:link{
+  text-decoration: none;
+  color: #9b2254;
+  
+}
+.flex-container{
+  display: flex;
+  flex-flow: row no-wrap;
+  justify-content: center;
+  height: 100px;
+  align-items: center;
+}
+.tab-content {
+  display: none;
+  padding: 0;
+}
+.cell1{
+  
+}
+.tab-content.is-active {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+.stat-pic{
+  border-radius: 5px;
+  border: 3px solid crimson;
+  margin: auto;
+  min-width: 230px;
+  max-width: 315px;
+  opacity: 0.8;
+}
+
+.title-fight{
+  border-radius: 50%;
+  border: 10px solid white;
+  position: absolute;
+  box-shadow: 2px 2px 3px 4px;
+  min-width: 230px;
+  max-width: 315px;
+  opacity: 0.8;
+}
+.snip1507 {
+  font-family: 'Teko', sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 230px;
+  max-width: 315px;
+  width: 100%;
+  color: #ffffff;
+  text-align: left;
+  font-size: 16px;
+  background-color:rgba(0,0,0,0.2);
+}
+
+
+.snip1507 img {
+  vertical-align: top;
+  max-width: 100%;
+  backface-visibility: hidden;
+  -webkit-filter: sepia(100%) blur(15px);
+  filter: sepia(100%) blur(15px);
+  opacity: 0.75;
+}
+
+.snip1507 figcaption {
+  z-index: 1;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(195, 86, 97, 0.85);
+  background-image: -webkit-linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
+  padding: 20px;
+}
+
+.snip1507 figcaption:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 3px ridge #a2a2a2;
+  background-color: rgb(155,34,84,0.3);
+ 
+  top: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
+  position: absolute;
+}
+
+.snip1507 h3,
+.snip1507 h5 {
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.snip1507 h3 {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.snip1507 h5 {
+  font-weight: normal;
+}
+
+.snip1507 a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.snip1507:hover > img,
+.snip1507.hover > img {
+  opacity: 1;
+  -webkit-filter: sepia(0%) blur(0px);
+  filter: sepia(0%) blur(0px);
+}
+
+.snip1537 {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  display: inline-block;
+  color: #bdbdbd;
+  margin: 60px 20px;
+  max-width: 285px;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.snip1537 h1,
+.snip1537 h5 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.snip1537 h1 {
+  font-family: 'Teko', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 54px;
+  padding: 0;
+  text-align: center;
+  margin: 0;
+  line-height: 27px;
+}
+.snip1537 h4 {
+  font-style: italic;
+  font-family: serif;
+  color: white;
+  text-shadow: 1px 1px black, -1px -1px black;
+  padding-bottom: 20px;
+}
+.snip1537 h5 {
+  background-color: #bdbdbd;
+  color: #212121;
+  display: inline-block;
+  font-size: 0.6em;
+  font-weight: 700;
+  line-height: 18px;
+  padding: 0 20px;
+  position: relative;
+}
+
+.snip1537 h5:before,
+.snip1537 h5:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 2px;
+  border-width: 9px 5px;
+  border-style: solid;
+  opacity: 0.8;
+}
+
+.snip1537 h5:before {
+  right: 100%;
+  border-color: #bdbdbd #bdbdbd #bdbdbd transparent;
+}
+
+.snip1537 h5:after {
+  left: 100%;
+  border-color: #bdbdbd transparent #bdbdbd #bdbdbd;
+}
+
+.snip1537 h6 {
+  margin: 0;
+  display: inline-block;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.snip1537 h6:before,
+.snip1537 h6:after {
+  position: absolute;
+  height: 2px;
+  content: '';
+  width: 30px;
+  top: 50%;
+  border-top: 2px solid #bdbdbd;
+  border-bottom: 2px solid #bdbdbd;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.snip1537 h6:before {
+  left: -35px;
+}
+
+.snip1537 h6:after {
+  right: -35px;
+}
+
+.snip1537 i {
+  font-size: 22px;
+  line-height: 36px;
+}
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
+
+
+</style>

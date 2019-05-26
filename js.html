@@ -1,0 +1,131 @@
+<script>
+  const date = new Date().toDateString();
+  const tabs     = document.querySelectorAll(".my-tabs .tabs div");
+  const sections = document.querySelectorAll(".my-tabs .tab-content");
+
+window.addEventListener('load', function() {
+  google.script.run.withSuccessHandler(displayData).makeTables(["leaderboard1","leaderboard2"]);     
+                                                                         
+  //google.script.run.withSuccessHandler(displayData2).sheet2htmlTable("leaderboard2");
+ // google.script.run.withSuccessHandler(displayNav).makeNavButtons();
+   
+})
+
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", e => {
+      e.preventDefault();
+      removeActiveTab();
+      addActiveTab(tab);
+    });
+  })
+//  const updateTime(){
+//    let clock = document.querySelector('#clock');
+//    clock.setInnerHtml(date);
+//  }
+  const removeActiveTab = () => {
+    tabs.forEach(tab => {
+      tab.classList.remove("is-active");
+    });
+    sections.forEach(section => {
+      section.classList.remove("is-active");
+    });
+  }
+
+  const addActiveTab = tab => {
+    tab.classList.add("is-active");
+    const href = tab.querySelector("a").getAttribute("href");
+    const matchingSection = document.querySelector(href);
+    matchingSection.classList.add("is-active");
+  }
+  
+  //
+  function myFunction() {
+  var x = document.getElementById("Demo");
+  if (x.className.indexOf("w3-show") == -1) {  
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+  
+//  document.addEventListener("DOMContentLoaded", function(){
+//    google.script.run.withSuccessHandler(generateTable).getSheetObj("leaderboard");
+//    
+//  });
+//  function makeTable(gsValue){
+//    var tbody = document.getElementById("table1");
+//    tbody.innerHtml = "<h1>hi</h1>";
+//  
+//  }
+
+//make this into a single function
+  function displayData(data){
+    
+  var dataElement = document.getElementById("table1");
+  dataElement.innerHTML =  data;
+}
+//these display the data in the table
+  function displayData2(data){
+  var dataElement = document.getElementById("table2");
+  dataElement.innerHTML =  data;
+}
+//  
+//
+//function generateTable(dataArray){
+//    console.log(dataArray);
+//    var tbody = document.getElementById("table1");
+//    
+//    dataArray.forEach(function(r){
+//      
+//      var row = document.createElement("tr");
+//        r.forEach(function(c){
+//        var col = document.createElement("td");
+//        col.textContent = r[c];
+//        row.appendChild(col);
+//      });
+//      tbody.appendChild(row);
+//    });
+//  }
+
+
+// Accordian on leaderboard page    
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+  
+//  function move() {
+//  var elem = document.getElementById("myBar");   
+//  var width = 100;
+//  var id = setInterval(frame, 1);
+//  function frame() {
+//    var hit = Math.random() * 100 ;
+//    width -= hit;
+//    if (width <= 0) {
+//      width = 0;
+//      //diplay win loss
+//      document.getElementsByClassName("percent").innerHTML = 'You Lost';
+//    } else {
+// 
+//      elem.style.width = width + '%'; 
+//      document.getElementsByClassName("percent").innerHTML = width * 1  + '%';
+//    }
+//  }
+//}
+
+</script>
