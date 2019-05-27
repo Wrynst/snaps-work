@@ -1,12 +1,12 @@
 function doGet(e) {
   
-  //var table = sheet2htmlTable('leaderboard1');
+  var list = empList();
   
   var html = HtmlService.createTemplateFromFile('index');
   
- // html.table = table;
+ html.list = list;
   
-  Logger.log(html.table);
+  Logger.log(list);
   
  return  html.evaluate()
       .setTitle('Snap!')
@@ -24,4 +24,8 @@ function Boss(filth,impotency){
 Boss.prototype.attack = function(){
   
 
+}
+
+function testmain(){
+  Logger.log(empList());
 }

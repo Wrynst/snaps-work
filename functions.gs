@@ -26,7 +26,7 @@ function sheet2htmlTable(sheetName){
   //each row in values array contribute for an HTML table row :
    // <tr> htmlRow </tr>
     return "<tr>" + row.map(function(d){
-      if( d === "Team Snap" || d === "Solo Snap" || d === "Efficiency" || d ===  "Quality" || d === "Initiative" || d ===  "Leader" || d === "Add Rolls" || d === "Overall" || d === "5/15/2019" || d === "✵" || d === "5/31/2019"){
+      if( d === "Team Snap" || d === "Solo Snap" || d === "Efficiency" || d ===  "Quality" || d === "Initiative" || d ===  "Leader" || d === "Add Rolls" || d === "Overall" || d === "5/15/2019" || d === "✵" || d === "5/31/2019" || d === "☂" || d === "⚶" || d === "ꗈ" || d === "6/15/2019"){
         return '<th class="w3-black">'+ d +"</th>"
       }else{  
         return '<td class="cell1">'+ d +"</td>"
@@ -50,7 +50,7 @@ function testFuncs(){
  */
 function getSheetObj(sheetName) {
   var ss    = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName(sheetName).getDataRange().getValues();
+  var sheet = ss.getSheetByName(sheetName).getDataRange().getDisplayValues();
   return objectSheet(sheet);
 }
 

@@ -4,9 +4,9 @@
   const sections = document.querySelectorAll(".my-tabs .tab-content");
 
 window.addEventListener('load', function() {
-  google.script.run.withSuccessHandler(displayData).makeTables(["leaderboard1","leaderboard2"]);     
+  google.script.run.withSuccessHandler(displayData).sheet2htmlTable('leaderboard1');     
                                                                          
-  //google.script.run.withSuccessHandler(displayData2).sheet2htmlTable("leaderboard2");
+  google.script.run.withSuccessHandler(displayData2).sheet2htmlTable("leaderboard2");
  // google.script.run.withSuccessHandler(displayNav).makeNavButtons();
    
 })
