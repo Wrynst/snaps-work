@@ -1,55 +1,54 @@
 <div id="app">
-    <section class="row">
-        <div class="small-6 columns">
+  <h1 class="title">ROUND 1</h1>
+  <section class="w3-row">
+    <div class="w3-col s6 header">
+      
+      
+      <div id="userFight"></div>
 
-            <h1 class="text-center">YOU</h1>
-            <div class="healthbar">
-                <div
-                        class="healthbar text-center"
-                        style="background-color: green; margin: 0; color: white;"
-                        :style="{width: playerHealth + '%'}">
-                    {{ playerHealth }}
-                </div>
-            </div>
+      <div class="healthbar">
+        <div
+                class="healthbar w3-center"
+                style="background-color: green; margin: 0; color: white;"
+                :style="{width: playerHealth + '%'}">
+            {{ playerHealth }}
         </div>
-        <div class="small-6 columns">
-
-            <h1 class="text-center">Dwarf Deer</h1>
-            <div class="healthbar">
-                <div
-                        class="healthbar text-center"
-                        style="background-color: green; margin: 0; color: grey;"
-                        :style="{width: monsterHealth + '%'}">
-                    {{ monsterHealth }}
-                </div>
-            </div>
-                <figure>
-    <img class="title-fight" src="https://thenypost.files.wordpress.com/2015/06/tiny_baby_deer.jpg" >
-    <div class="snip1537">
-      <h4>Round 1</h4>
-      <h1>Dwarf Deer</h1>
-      <h6>Scourge of the Forest</h6><br/>
-      <h5>Since 1803</h5><br/><i class="ion-star"></i>
+      </div>
     </div>
-    </figure>
-        </div>
+    
+    <div class="w3-col s6">
+      <div>
+        <img class="title-fight" src="https://thenypost.files.wordpress.com/2015/06/tiny_baby_deer.jpg" >
+          <h1 class="w3-center">Dwarf Deer</h1>
+        
+          <div class="healthbar">
+            <div
+              class="healthbar w3-center"
+              style="background-color: green; margin: 0; color: grey;"
+              :style="{width: monsterHealth + '%'}">
+              {{ monsterHealth }}
+            </div>
+          </div>
+    
+      </div>
+      </div>
     </section>
-    <section class="row controls" v-if="!gameIsRunning">
+    <section class="w3-row controls" v-if="!gameIsRunning">
 
-        <div class="small-12 columns">
-            <button id="start-game" @click="startGame">START NEW GAME</button>
+        <div class="s12 w3-col">
+            <button id="start-game" class="button button-one" @click="startGame">Clean that meow!</button>
         </div>
     </section>
-    <section class="row controls" v-else>
-        <div class="small-12 columns">
-            <button id="attack" @click="attack">ATTACK</button>
-            <button id="special-attack" @click="specialAttack">SPECIAL ATTACK</button>
-            <button id="heal" @click="heal">HEAL</button>
-            <button id="give-up" @click="giveUp">GIVE UP</button>
+    <section class="w3-row controls" v-else>
+        <div class="s12 w3-col">
+            <button id="attack" @click="attack">Clean!</button>
+            <button id="special-attack" @click="specialAttack">Efficient Clean!</button>
+            <button id="heal" @click="heal">Lick Wounds</button>
+            <button id="give-up" @click="giveUp">Run Away</button>
         </div>
     </section>
-    <section class="row log" v-if="turns.length > 0">
-        <div class="small-12 columns">
+    <section class="w3-row log" v-if="turns.length > 0">
+        <div class="s12 w3-col">
             <ul>
                 <li v-for="turn in turns"
                     :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">

@@ -1,5 +1,5 @@
 <script>
-  const date = new Date().toDateString();
+  const date     = new Date().toDateString();
   const tabs     = document.querySelectorAll(".my-tabs .tabs div");
   const sections = document.querySelectorAll(".my-tabs .tab-content");
 
@@ -7,10 +7,25 @@ window.addEventListener('load', function() {
   google.script.run.withSuccessHandler(displayData).sheet2htmlTable('leaderboard1');     
                                                                          
   google.script.run.withSuccessHandler(displayData2).sheet2htmlTable("leaderboard2");
+  google.script.run.withSuccessHandler(displayData3).getUserDataFight();
  // google.script.run.withSuccessHandler(displayNav).makeNavButtons();
    
 })
-
+//make this into a single function
+  function displayData(data){
+    
+  var dataElement = document.getElementById("table1");
+  dataElement.innerHTML =  data;
+}
+//these display the data in the table
+  function displayData2(data){
+  var dataElement = document.getElementById("table2");
+  dataElement.innerHTML =  data;
+}
+  function displayData3(data){
+  var dataElement = document.getElementById("userFight");
+  dataElement.innerHTML =  data;
+}
 
   tabs.forEach(tab => {
     tab.addEventListener("click", e => {
@@ -19,10 +34,7 @@ window.addEventListener('load', function() {
       addActiveTab(tab);
     });
   })
-//  const updateTime(){
-//    let clock = document.querySelector('#clock');
-//    clock.setInnerHtml(date);
-//  }
+
   const removeActiveTab = () => {
     tabs.forEach(tab => {
       tab.classList.remove("is-active");
@@ -41,13 +53,13 @@ window.addEventListener('load', function() {
   
   //
   function myFunction() {
-  var x = document.getElementById("Demo");
-  if (x.className.indexOf("w3-show") == -1) {  
-    x.className += " w3-show";
-  } else { 
-    x.className = x.className.replace(" w3-show", "");
+    var x = document.getElementById("Demo");
+    if (x.className.indexOf("w3-show") == -1) {  
+      x.className += " w3-show";
+    } else { 
+      x.className = x.className.replace(" w3-show", "");
+    }
   }
-}
   
 //  document.addEventListener("DOMContentLoaded", function(){
 //    google.script.run.withSuccessHandler(generateTable).getSheetObj("leaderboard");
@@ -59,17 +71,9 @@ window.addEventListener('load', function() {
 //  
 //  }
 
-//make this into a single function
-  function displayData(data){
-    
-  var dataElement = document.getElementById("table1");
-  dataElement.innerHTML =  data;
-}
-//these display the data in the table
-  function displayData2(data){
-  var dataElement = document.getElementById("table2");
-  dataElement.innerHTML =  data;
-}
+
+ 
+  
 //  
 //
 //function generateTable(dataArray){

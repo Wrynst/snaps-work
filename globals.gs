@@ -1,22 +1,31 @@
+
 var snaps     = getSheetObj('Snaps');
 var employees = getSheetObj('Roster');
+var userName  = userNamer();
 
 
-function testGs(){
- 
-    Logger.log(getNamesOfEmps());
-  }
-    
-function empList(){
-  var empFirstNameAndEmailList = employees.map(function(emp){
-    if (emp.displayName === undefined || emp.email === null){
-     // Logger.log("This is Nate %s logged",emp.displayName); 
-    }else{
-      return { "name" : emp.displayName, "email" : emp.email };
+function userEmail(){
+  return Session.getActiveUser().getEmail();
+}
+
+function userNamer(){
+  var list = employeeNameAndEmailList();
+  //Logger.log(list);
+  var email = Session.getActiveUser();
+  var name = list.filter(function(e) {
+    if (e.email == email) {
+      return e.name;  
     }
   });
-    return empFirstNameAndEmailList;
+  return name[0].name;
 }
+
+function testGs(){
+
+    Logger.log(userNamer());
+  }
+    
+
 
 function getSheetsInBook () {
 
@@ -27,10 +36,21 @@ function getSheetsInBook () {
     return d.getName();
   });
 }
-function getNamesOfEmps () {
+function employeeNameAndEmailList () {
 
   return employees
     .map(function (d) {
       return { "name" : d.displayName, "email" : d.email };
     });
+}
+
+function getUserStats(){
+  
+
+}
+
+function getUserDataFight(){
+  
+  return '<img src="https://robohash.org/'+ userName +'.png?set=set4&size=50x50"><br><h1>'+ userName +'</h1>';
+
 }

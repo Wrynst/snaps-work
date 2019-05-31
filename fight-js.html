@@ -5,9 +5,20 @@ new Vue({
         playerHealth: 100,
         monsterHealth: 100,
         gameIsRunning: false,
-        turns: []
+        turns: [],
+//        players: []
     },
     methods: {
+//        getPlayersList: function (){
+//          var vm = this;
+//          google.script.run
+//            .withSuccessHandler(function (players) {
+//              vm.players = players;
+//            
+//            }).employeeNameAndEmailList();
+//             
+//        
+//        }
         startGame: function () {
             this.gameIsRunning = true;
             this.playerHealth = 100;
@@ -15,7 +26,7 @@ new Vue({
             this.turns = [];
         },
         attack: function () {
-            var damage = this.calculateDamage(3, 10);
+            var damage = this.calculateDamage(2, 6);
             this.monsterHealth -= damage;
             this.turns.unshift({
                 isPlayer: true,
@@ -28,7 +39,7 @@ new Vue({
             this.monsterAttacks();
         },
         specialAttack: function () {
-            var damage = this.calculateDamage(10, 20);
+            var damage = this.calculateDamage(12, 15);
             this.monsterHealth -= damage;
             this.turns.unshift({
                 isPlayer: true,
@@ -55,7 +66,7 @@ new Vue({
             this.gameIsRunning = false;
         },
         monsterAttacks: function() {
-            var damage = this.calculateDamage(5, 12);
+            var damage = this.calculateDamage(8, 15);
             this.playerHealth -= damage;
             this.checkWin();
             this.turns.unshift({
@@ -85,5 +96,5 @@ new Vue({
             return false;
         }
     }
-});
+}); // .getPlayersList();
 </script>

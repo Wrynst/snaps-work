@@ -21,15 +21,19 @@ function sheet2htmlTable(sheetName){
   var sp = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = sp.getSheetByName(sheetName) ;
   var values = sheet.getDataRange().getDisplayValues() ;
+  
   var htmlStr = '<table class="w3-table-all w3-animate-zoom">' ; // open with the HTML tag <table>
   htmlStr += values.map(function(row) {
   //each row in values array contribute for an HTML table row :
    // <tr> htmlRow </tr>
     return "<tr>" + row.map(function(d){
+    Logger.log(userName);  
       if( d === "Team Snap" || d === "Solo Snap" || d === "Efficiency" || d ===  "Quality" || d === "Initiative" || d ===  "Leader" || d === "Add Rolls" || d === "Overall" || d === "5/15/2019" || d === "✵" || d === "5/31/2019" || d === "☂" || d === "⚶" || d === "ꗈ" || d === "6/15/2019"){
         return '<th class="w3-black">'+ d +"</th>"
-      }else{  
-        return '<td class="cell1">'+ d +"</td>"
+      }else if( d === userName ){
+        return '<td><a href="#'+ userName +'"class="fancy-link">'+ d +'</a></td>'
+      }else{
+        return '<td class="cell">'+ d +"</td>"
       }
         }).join("") + "</tr>" ;
   }).join("");

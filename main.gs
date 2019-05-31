@@ -1,22 +1,21 @@
 function doGet(e) {
   
-  var list = empList();
+  //var email = userEmail();
+  
   
   var html = HtmlService.createTemplateFromFile('index');
   
- html.list = list;
+  //html.userEmail = email;
+  //Logger.log( html.userEmail);
   
-  Logger.log(list);
-  
- return  html.evaluate()
-      .setTitle('Snap!')
+ return html.evaluate()
+     .setTitle('Snap!')
       .addMetaTag('viewport', 'width=device-width, initial-scale=1')
-      .setFaviconUrl("https://arnold.systems/img/lobster.png");
- // Logger.log( html);
-  
+      .setFaviconUrl("https://arnold.systems/img/lobster.png"); 
 }
 
-function Boss(filth,impotency){
+function Boss(name,filth,impotency){
+  this.name = name;
   this.filth = filth;
   this.impotency = impotency;
 }
@@ -26,6 +25,8 @@ Boss.prototype.attack = function(){
 
 }
 
+
+
 function testmain(){
-  Logger.log(empList());
+  Logger.log(userEmail());
 }
