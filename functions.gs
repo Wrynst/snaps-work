@@ -22,16 +22,16 @@ function sheet2htmlTable(sheetName){
   var sheet = sp.getSheetByName(sheetName) ;
   var values = sheet.getDataRange().getDisplayValues() ;
   
-  var htmlStr = '<table class="w3-table-all w3-animate-zoom">' ; // open with the HTML tag <table>
+  var htmlStr = '<table class="w3-table-all animated zoomIn">' ; // open with the HTML tag <table>
   htmlStr += values.map(function(row) {
   //each row in values array contribute for an HTML table row :
    // <tr> htmlRow </tr>
     return "<tr>" + row.map(function(d){
-    Logger.log(userName);  
+    //Logger.log(userName);  
       if( d === "Team Snap" || d === "Solo Snap" || d === "Efficiency" || d ===  "Quality" || d === "Initiative" || d ===  "Leader" || d === "Add Rolls" || d === "Overall" || d === "5/15/2019" || d === "✵" || d === "5/31/2019" || d === "☂" || d === "⚶" || d === "ꗈ" || d === "6/15/2019"){
         return '<th class="w3-black">'+ d +"</th>"
-      }else if( d === userName ){
-        return '<td><a href="#'+ userName +'"class="fancy-link">'+ d +'</a></td>'
+      }else if( d === employeeUser.name ){
+        return '<td><a href="#'+ employeeUser.name +'"class="fancy-link">'+ d +'</a></td>'
       }else{
         return '<td class="cell">'+ d +"</td>"
       }
@@ -43,10 +43,35 @@ function sheet2htmlTable(sheetName){
   //Logger.log( htmlStr );
 }
 
+function sheet2htmlTableHome(){
+ 
+ 
+  var sheet = ss.getSheetByName(employeeUser.name) ;
+  var values = sheet.getDataRange().getDisplayValues() ;
+  var header = values.shift();
+  var header1 = values.shift();
+  var htmlStr = '<h1 class="title">'+ employeeUser.name +' calls it home.</h1><div class="w3-container kitty-card"><div class=""><img src="https://robohash.org/'+ employeeUser.name +'.png?set=set4&size=300x300"><div class="w3-container w3-center"><h1>'+ employeeUser.name +'</h1></div></div></div>'; // open with the HTML tag <table>
+  //header
+  htmlStr += '<br><header class="w3-row">';
+  htmlStr += header1.map(function(cell) {return '<div style="display:inline-block;">'+ cell +'</div>'}).join(""); 
+  htmlStr += '</header>';
+  //body
+  //htmlStr += values.map(function(row) {
+  //each row in values array contribute for an HTML table row :
+//   // <tr> htmlRow </tr>
+    Logger.log(htmlStr);
+ // return row.map(function(d){
+    
+ //   })
+// })
+  
+  return htmlStr;
+}
+
 function testFuncs(){
   
-   Logger.log();
-}
+   Logger.log(sheet2htmlTableHome());
+};
 
 
 /*

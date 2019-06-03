@@ -1,4 +1,6 @@
-<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.1/animate.css"> 
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
@@ -55,6 +57,13 @@ body {
   background-size: contain, 50px;
 }
 
+.kitty-card{
+  background-image:url("https://arnold.systems/icons/cat-box.png"),  url("https://arnold.systems/icons/cat-food.png"), linear-gradient(to top right,  rgba(0,0,0,0) 50%,rgba(38,57,100,1) 55%, rgba(155,34,84,1) 69%, rgba(0,0,0,0) 80%);
+  background-size: 225px, 100px, contain; 
+  background-repeat: no-repeat;
+  background-position: left, right 20px bottom 25px, right top;
+}
+
 .window-cat-box{
   position: absolute;
   top: 0px;
@@ -96,34 +105,27 @@ p {
 .my-tabs{
 
 }
-#tab-zero{
-  padding: 30px 0;
-  width: 100%;
-  margin: 100px 0;
 
-}
-
-#tab-one{
-  padding: 30px 0;
-  margin: 100px 0;
-  width: 100%;
- 
-  
-}
-
-#tab-two{
+#tab-one, #tab-two, #tab-zero, #home{
   width: 100%;
   margin: 100px 0;
 
   padding: 30px 0;
   
 }
+#home {
+  background-image: url("https://arnold.systems/img/bathroom-home.jpg");
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
 
+}
 #tab-three{
   font-family: 'Stylish', sans-serif;
   padding: 30px 0;
   width: 100vw;
-  margin: 100px 0;
+  margin: 0;
   height: 100vh;
 
   background-color: #222222;
@@ -133,26 +135,27 @@ p {
 }
 
 nav div {
-  padding: 10px;
+  padding: 0 10px;
   position: relative;
 }
 
-nav div a:hover {
-  text-shadow: 1px 2px 1px 1px black;
+nav div > a:hover {
+  color: #5f69e3;
+  text-shadow: 2px 2px 1px;
 }
 
 nav div a {
   text-decoration: none;
   color: #26396b;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 nav div.is-active{
-  background-image: url("https://arnold.systems/icons/cat-food.png");
+  background-image: url("https://arnold.systems/icons/017-cat toy.png");
   background-size: 30px;
   background-position: bottom;
   background-repeat: no-repeat;
-  
+  background-blend-mode: luminosity;
   transform: scaleX(1);
   transform-origin: bottom left;
   
@@ -411,108 +414,6 @@ font-family: 'Stylish', sans-serif;
  
 }
 
-.snip1537 {
-  font-family: 'Fredericka the Great', cursive;
-  position: relative;
-  display: inline-block;
-  color: #bdbdbd;
-  margin: 30px 10px;
-  max-width: 150px;
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
-}
-
-.snip1537 h1,
-.snip1537 h5 {
-  margin: 0;
-  text-transform: uppercase;
-}
-
-.snip1537 h1 {
-   font-family: 'Fredericka the Great', cursive;
-  font-weight: 700;
-  font-size: 26px;
-  padding: 0;
-  text-align: center;
-  margin: 0;
-  line-height: 24px;
-}
-.snip1537 h4 {
-  font-style: italic;
-  font-family: serif;
-  color: white;
-  text-shadow: 1px 1px black, -1px -1px black;
-  padding-bottom: 1px;
-  font-size: 10px;
-}
-.snip1537 h5 {
-  background-color: #bdbdbd;
-  color: #212121;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 16px;
-  padding: 0 3px;
-  position: relative;
-}
-
-.snip1537 h5:before,
-.snip1537 h5:after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  top: 2px;
-  border-width: 9px 5px;
-  border-style: solid;
-  opacity: 0.8;
-}
-
-.snip1537 h5:before {
-  right: 100%;
-  border-color: #bdbdbd #bdbdbd #bdbdbd transparent;
-}
-
-.snip1537 h5:after {
-  left: 100%;
-  border-color: #bdbdbd transparent #bdbdbd #bdbdbd;
-}
-
-.snip1537 h6 {
-  margin: 0;
-  display: inline-block;
-  position: relative;
-  text-transform: uppercase;
-}
-
-.snip1537 h6:before,
-.snip1537 h6:after {
-  position: absolute;
-  height: 2px;
-  content: '';
-  width: 30px;
-  top: 50%;
-  border-top: 2px solid #bdbdbd;
-  border-bottom: 2px solid #bdbdbd;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-.snip1537 h6:before {
-  left: -5px;
-}
-
-.snip1537 h6:after {
-  right: -5px;
-}
-
-.snip1537 i {
-  font-size: 16px;
-  line-height: 18px;
-}
 /* Style the buttons that are used to open and close the accordion panel */
 .accordion {
   background-color: #eee;
