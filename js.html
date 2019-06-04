@@ -5,25 +5,25 @@
 
 window.addEventListener('load', function() {
   
-  google.script.run.withSuccessHandler(displayData).sheet2htmlTable('leaderboard1');     
+  google.script.run.withSuccessHandler(displayData).sheet2htmlTable('leaderboard1');    // fetches data from sheet and displays the round 1 leaderboard as the website document finishes 
                                                                          
-  google.script.run.withSuccessHandler(displayData2).sheet2htmlTable("leaderboard2");
-  google.script.run.withSuccessHandler(displayData3).getUserDataFight();
+  google.script.run.withSuccessHandler(displayData2).sheet2htmlTable("leaderboard2");    // round 2 leaderboard
+  google.script.run.withSuccessHandler(displayData3).getUserDataFight();                  //
  // google.script.run.withSuccessHandler(displayNav).makeNavButtons();
-   
 })
-
+  //Display Individual Player Data from Sheets
   function displayDataHome(data){
-  var dataElement = document.getElementById("one");
-  var htmlData = '<ul class="w3-ul w3-tiny" width="50%">';
-  
+  var dataElement = document.getElementById("one");  
+  var htmlData = '<div class="w3-container"><ul class="w3-ul w3-small" width="40%"><li><img src="https://robohash.org/'+data[0].name+'.png?set=set4&size=50x50"><span class="close" onclick="nateclose(this.class)">&times;</span></li>';
+
   for(row in data){
-  if(data[row]){
-    console.log(data[row]);
-    htmlData += '<li class="w3-tiny" width="50%">'+ data[row].round1 +' '+ data[row].name +' '+ data[row].event +' '+ data[row].points +'</li>'
+    if(!data[row].name){
+      continue;
+    }else{
+      htmlData += '<li class="w3-small">'+ data[row].round1 + ' <span class="fa-layers fa-fw"><i style=' + (data[row].type === 'Team' ? "color:#0b7013" : "color:#26396b") + ' class="fas ' + (data[row].event === 'Initiative' ? 'fa-certificate" data-fa-transform="shrink-2">' : 'fa-comment" data-fa-transform="shrink-3">') +  '</i><span class="fa-layers-text fa-inverse w3-vt323" data-fa-transform="down-1" style="font-size:12px;font-weight:900">' + data[row].points + '</span></span><a class="fancy-link w3-tooltip">'+ data[row].title +' <i class="fal fa-info"></i><span class="tool w3-text w3-tag w3-round w3-animate-opacity">' + data[row].why + '</span></a></li>';
+    }
   }
-  }
-  htmlData += '</ul>';
+  htmlData += '</ul></div>';
   dataElement.innerHTML =  htmlData;
 }
 //make this into a single function
@@ -137,6 +137,12 @@ var modal = document.getElementById("myModal");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+function nateclose(className){
+  modal.style.display = "none";
+  var e = document.getElementById("one");
+  e.innerHTML = '<i class="fal fa-spin fa-pulse fa-ring fa-5x"></i>';
+   
+}
 
 // When the user clicks on the button, open the modal 
 //btn.onclick = function() {

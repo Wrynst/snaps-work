@@ -31,7 +31,7 @@ function sheet2htmlTable(sheetName){
       for ( i=0; i<allEmpNameEmail.length; i++){ 
         if(allEmpNameEmail[i].name === d ) {
           Logger.log(allEmpNameEmail[i].name);
-          return '<td><button id="'+ d +'" onclick="natemodal(this.id)">'+ d +'</button></td>';
+          return '<td><button id="'+ d +'" onclick="natemodal(this.id)" class="fancy-link">'+ d +'</button></td>';
         } 
       }
         
@@ -59,7 +59,7 @@ function sheet2htmlTableHome(nameOfSheet){
   //var htmlStr = '<h1 class="title home-title">'+ employeeUser.name +' calls it home.</h1><div class=" kitty-card"><div class=""><img src="https://robohash.org/'+ employeeUser.name +'.png?set=set4&size=150x150"><div class="w3-container w3-center"><h1>'+ employeeUser.name +'</h1></div></div></div>'; // open with the HTML tag <table>
   //header
   var htmlStr = '<br><div class="w3-container"><table class="indvidual w3-table-all"><tr>';
-  htmlStr += header1.map(function(cell) {return '<th style="padding: 15px">'+ cell +'</th>'}).join(""); 
+  htmlStr += header1.map(function(cell) {return '<th style="padding: 5px;">'+ cell +'</th>'}).join(""); 
   htmlStr += '</tr>';
   //body
   htmlStr += values.map(function(row) {
@@ -94,6 +94,7 @@ function getSheetObj2headers(sheetName) {
   var name = sheet.shift();
   return objectSheet(sheet);
 }
+
 function getSheetObj(sheetName) {
   var ss    = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(sheetName).getDataRange().getDisplayValues();
