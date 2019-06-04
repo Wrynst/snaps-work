@@ -18,8 +18,8 @@ function makeTables(arrayofSheetNames){
 
 function sheet2htmlTable(sheetName){
  
-  var sp = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = sp.getSheetByName(sheetName) ;
+  
+  var sheet = ss.getSheetByName(sheetName) ;
   var values = sheet.getDataRange().getDisplayValues() ;
   
   var htmlStr = '<table class="w3-table-all animated zoomIn">' ; // open with the HTML tag <table>
@@ -27,15 +27,21 @@ function sheet2htmlTable(sheetName){
   //each row in values array contribute for an HTML table row :
    // <tr> htmlRow </tr>
     return "<tr>" + row.map(function(d){
-    //Logger.log(userName);  
+      
+      for ( i=0; i<allEmpNameEmail.length; i++){ 
+        if(allEmpNameEmail[i].name === d ) {
+          Logger.log(allEmpNameEmail[i].name);
+          return '<td><button id="'+ d +'" onclick="natemodal(this.id)">'+ d +'</button></td>';
+        } 
+      }
+        
       if( d === "Team Snap" || d === "Solo Snap" || d === "Efficiency" || d ===  "Quality" || d === "Initiative" || d ===  "Leader" || d === "Add Rolls" || d === "Overall" || d === "5/15/2019" || d === "✵" || d === "5/31/2019" || d === "☂" || d === "⚶" || d === "ꗈ" || d === "6/15/2019"){
         return '<th class="w3-black">'+ d +"</th>"
-      }else if( d === employeeUser.name ){
-        return '<td><a href="#'+ employeeUser.name +'"class="fancy-link">'+ d +'</a></td>'
       }else{
         return '<td class="cell">'+ d +"</td>"
-      }
-        }).join("") + "</tr>" ;
+        }
+    
+    }).join("") + "</tr>" ;
   }).join("");
   htmlStr += "</table>" ; // close with the HTML tag </table>
  
@@ -43,29 +49,34 @@ function sheet2htmlTable(sheetName){
   //Logger.log( htmlStr );
 }
 
-function sheet2htmlTableHome(){
+function sheet2htmlTableHome(nameOfSheet){
  
  
-  var sheet = ss.getSheetByName(employeeUser.name) ;
+  var sheet = ss.getSheetByName(nameOfSheet) ;
   var values = sheet.getDataRange().getDisplayValues() ;
   var header = values.shift();
   var header1 = values.shift();
-  var htmlStr = '<h1 class="title">'+ employeeUser.name +' calls it home.</h1><div class="w3-container kitty-card"><div class=""><img src="https://robohash.org/'+ employeeUser.name +'.png?set=set4&size=300x300"><div class="w3-container w3-center"><h1>'+ employeeUser.name +'</h1></div></div></div>'; // open with the HTML tag <table>
+  //var htmlStr = '<h1 class="title home-title">'+ employeeUser.name +' calls it home.</h1><div class=" kitty-card"><div class=""><img src="https://robohash.org/'+ employeeUser.name +'.png?set=set4&size=150x150"><div class="w3-container w3-center"><h1>'+ employeeUser.name +'</h1></div></div></div>'; // open with the HTML tag <table>
   //header
-  htmlStr += '<br><header class="w3-row">';
-  htmlStr += header1.map(function(cell) {return '<div style="display:inline-block;">'+ cell +'</div>'}).join(""); 
-  htmlStr += '</header>';
+  var htmlStr = '<br><div class="w3-container"><table class="indvidual w3-table-all"><tr>';
+  htmlStr += header1.map(function(cell) {return '<th style="padding: 15px">'+ cell +'</th>'}).join(""); 
+  htmlStr += '</tr>';
   //body
-  //htmlStr += values.map(function(row) {
+  htmlStr += values.map(function(row) {
   //each row in values array contribute for an HTML table row :
-//   // <tr> htmlRow </tr>
-    Logger.log(htmlStr);
- // return row.map(function(d){
-    
- //   })
-// })
-  
+    //<tr> htmlRow </tr>
+   // Logger.log(htmlStr);
+    return "<tr>" + row.map(function(d){
+      return '<td class="cell">'+ d +"</td>"
+      }).join("") + "</tr>";
+   }).join("");
+  htmlStr += "</table></div>"
   return htmlStr;
+}
+
+function statsModal(){
+  
+
 }
 
 function testFuncs(){
@@ -77,12 +88,17 @@ function testFuncs(){
 /*
  * @param(string) sheetName is the name of the sheet as a string
  */
+function getSheetObj2headers(sheetName) {
+ 
+  var sheet = ss.getSheetByName(sheetName).getDataRange().getDisplayValues();
+  var name = sheet.shift();
+  return objectSheet(sheet);
+}
 function getSheetObj(sheetName) {
   var ss    = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(sheetName).getDataRange().getDisplayValues();
   return objectSheet(sheet);
 }
-
 function objectSheet(data) {
   
   var headers = data.shift();

@@ -4,7 +4,7 @@
   const sections = document.querySelectorAll(".my-tabs .tab-content");
 
 window.addEventListener('load', function() {
-  google.script.run.withSuccessHandler(displayDataHome).sheet2htmlTableHome();
+  
   google.script.run.withSuccessHandler(displayData).sheet2htmlTable('leaderboard1');     
                                                                          
   google.script.run.withSuccessHandler(displayData2).sheet2htmlTable("leaderboard2");
@@ -14,8 +14,17 @@ window.addEventListener('load', function() {
 })
 
   function displayDataHome(data){
-  var dataElement = document.getElementById("home-one");
-  dataElement.innerHTML =  data;
+  var dataElement = document.getElementById("one");
+  var htmlData = '<ul class="w3-ul w3-tiny" width="50%">';
+  
+  for(row in data){
+  if(data[row]){
+    console.log(data[row]);
+    htmlData += '<li class="w3-tiny" width="50%">'+ data[row].round1 +' '+ data[row].name +' '+ data[row].event +' '+ data[row].points +'</li>'
+  }
+  }
+  htmlData += '</ul>';
+  dataElement.innerHTML =  htmlData;
 }
 //make this into a single function
   function displayData(data){
@@ -118,6 +127,39 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 }
+
+// Get the modal 
+var modal = document.getElementById("myModal");
+
+// Get the link that opens the modal
+//var btn = document.getElementById("Nathan");
+//console.log(btn);
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+
+// When the user clicks on the button, open the modal 
+//btn.onclick = function() {
+//  modal.style.display = "block";
+//}
+
+function natemodal(name) {
+  console.log(name);
+  google.script.run.withSuccessHandler(displayDataHome).getSheetObj2headers(name);
+  modal.style.display = "block";
+}
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}  
+  
   
 //  function move() {
 //  var elem = document.getElementById("myBar");   

@@ -1,9 +1,11 @@
-var ss            = SpreadsheetApp.getActiveSpreadsheet();
-var allSheets     = ss.getSheets();
-var snaps         = getSheetObj('Snaps');
-var allEmployees  = getSheetObj('Roster');
-var employeeUser  = userNamer();
-var empSheet      = getSheetObj(employeeUser.name);
+var ss                = SpreadsheetApp.getActiveSpreadsheet();
+var allSheets         = ss.getSheets();
+var snaps             = getSheetObj('Snaps');
+var allEmployees      = getSheetObj('Roster');
+var employeeUser      = userNamer();
+var empSheet          = getSheetObj(employeeUser.name);
+var allEmpNameEmail   = employeeNameAndEmailList();
+
 
 function userNamer(){
   var list = employeeNameAndEmailList();
@@ -19,7 +21,7 @@ function userNamer(){
 
 function testGs(){
 
-    Logger.log(empSheet);
+    Logger.log(allEmpNameEmail[0].name);
   }
     
 
