@@ -1,11 +1,11 @@
 function doGet(e) {
   
-  var named = employeeUser.name;
+ // var named = employeeUser.name;
   
   
   var html = HtmlService.createTemplateFromFile('index');
   
-  html.userName = named;
+  //html.userName = named;
   
   //Logger.log( html.name);
   

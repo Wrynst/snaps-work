@@ -1,43 +1,41 @@
 <script>
-new Vue({
+  new Vue({
     el: '#app',
     data: {
-        playerHealth: 100,
-        monsterHealth: 100,
-        gameIsRunning: false,
-        turns: [],
-//        players: []
+      username: '',
+      playerHealth: 81,
+      monsterHealth: 80,
+     // playerHeals: 0,
+     // playerSpecials: 0,
+      gameIsRunning: false,
+      turns: []
+  //  
     },
     methods: {
-//        getPlayersList: function (){
-//          var vm = this;
-//          google.script.run
-//            .withSuccessHandler(function (players) {
-//              vm.players = players;
-//            
-//            }).employeeNameAndEmailList();
-//             
-//        
-//        }
-        startGame: function () {
-            this.gameIsRunning = true;
-            this.playerHealth = 100;
-            this.monsterHealth = 100;
-            this.turns = [];
-        },
-        attack: function () {
-            var damage = this.calculateDamage(2, 6);
-            this.monsterHealth -= damage;
-            this.turns.unshift({
-                isPlayer: true,
-                text: 'Player hits Monster for ' + damage
-            });
-            if (this.checkWin()) {
-                return;
-            }
+      getUserData: function (){
+        var vm = this;
+        google.script.run.withSuccessHandler(function ( user ) { return vm.username = user.name; }).userNamer();
+           
+      },
+      startGame: function () {
+        this.gameIsRunning = true;
+        this.playerHealth = 100;
+        this.monsterHealth = 100;
+        this.turns = [];
+      },
+      attack: function () {
+        var damage = this.calculateDamage(2, 6);
+        this.monsterHealth -= damage;
+        this.turns.unshift({
+            isPlayer: true,
+            text: 'Player hits Monster for ' + damage
+        });
+        if (this.checkWin()) {
+            return;
+        }
 
-            this.monsterAttacks();
-        },
+          this.monsterAttacks();
+      },
         specialAttack: function () {
             var damage = this.calculateDamage(12, 15);
             this.monsterHealth -= damage;

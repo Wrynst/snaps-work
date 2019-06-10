@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base target="_top">
+    <base target="_self">
   
 
-<?!= include('css'); ?>
-<?!= include('fight-css'); ?> 
-<script src="https://npmcdn.com/vue/dist/vue.js"></script>
-<script src="https://kit.fontawesome.com/121d8e0ae0.js"></script>
+    <?!= include('css'); ?>
+    <?!= include('fight-css'); ?> 
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <script src="https://kit.fontawesome.com/121d8e0ae0.js"></script>
   </head>
   
   
-  <body class="">
-    <!-- The Modal -->
-<div id="myModal" class="modal">
+  <body>
+    <div id="loadit" class="modal">
+      <div class="dots">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+<!-- The Modal -->
+  <div id="myModal" class="modal ">
+ 
+<!-- Modal content -->
+  <div class="modal-content w3-container " id="one">
+ <!-- The Loading Animation -->  
 
-  <!-- Modal content -->
-  <div class="modal-content" id="one">
-    <span class="close">&times;</span>
-    <i class="fal fa-spin fa-pulse fa-ring fa-5x"></i>
-  </div></div>
+  </div>
+  </div>
     <div class="my-tabs">
    
     <!-- <div class="window-cat-box"><img src="https://arnold.systems/icons/animal (1).png" class="window-cat sticky"></div> -->
      
-      <nav class="tabs flex-container ">
+      <nav class="tabs">
         
-        <div class="is-active"><a href="#tab-zero"><i class="fal fa-list-ol"></i> Leaderboards</a></div>
-        <div><a href="#tab-one"><i class="fal fa-book-user"></i> Bio</a></div>
-        <div><a href="#tab-two"><i class="fal fa-address-card"></i> Stats</a></div>
-        <div><a href="#tab-three"><i class="fal fa-paw-claws"></i> Fight!</a></div> 
+        <div class="is-active"><a href="#tab-zero"><i class="fal fa-list-ol"></i></a></div>
+        <div><a href="#tab-one"><i class="fal fa-book-user"></i></a></div>
+        <div><a href="#tab-two"><i class="fal fa-address-card"></i></a></div>
+        <div><a href="#tab-three"><i class="fal fa-paw-claws" ></i></a></div> 
       </nav>
       
 

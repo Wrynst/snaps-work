@@ -5,14 +5,19 @@ function sheetValues(){
   return values;
 }
 
+function testFuncs(){
+  
+   Logger.log(makeTables(['leaderboard1','leaderboard2', 'leaderboard3']));
+};
+
 function makeTables(arrayofSheetNames){
   var tables = [];
   arrayofSheetNames.forEach(function(sheet){
     var table = sheet2htmlTable(sheet);
-    var sheet = sheet;
-    tables.push({ sheet : table });
+    var sheetName = sheet.toString();
+    tables.push({ 'name' : sheetName, 'table' : table });
   }); 
-  Logger.log(tables);
+ // Logger.log(tables);
   return tables;
 }
 
@@ -20,9 +25,9 @@ function sheet2htmlTable(sheetName){
  
   
   var sheet = ss.getSheetByName(sheetName) ;
-  var values = sheet.getDataRange().getDisplayValues() ;
+  var values = sheet.getDataRange().getValues() ;
   
-  var htmlStr = '<table class="w3-table-all animated zoomIn">' ; // open with the HTML tag <table>
+  var htmlStr = '<table class="w3-table-all">' ; // open with the HTML tag <table>
   htmlStr += values.map(function(row) {
   //each row in values array contribute for an HTML table row :
    // <tr> htmlRow </tr>
@@ -30,15 +35,15 @@ function sheet2htmlTable(sheetName){
       
       for ( i=0; i<allEmpNameEmail.length; i++){ 
         if(allEmpNameEmail[i].name === d ) {
-          Logger.log(allEmpNameEmail[i].name);
+         // Logger.log(allEmpNameEmail[i].name);
           return '<td><button id="'+ d +'" onclick="natemodal(this.id)" class="fancy-link">'+ d +'</button></td>';
         } 
       }
         
-      if( d === "Team Snap" || d === "Solo Snap" || d === "Efficiency" || d ===  "Quality" || d === "Initiative" || d ===  "Leader" || d === "Add Rolls" || d === "Overall" || d === "5/15/2019" || d === "✵" || d === "5/31/2019" || d === "☂" || d === "⚶" || d === "ꗈ" || d === "6/15/2019"){
-        return '<th class="w3-black">'+ d +"</th>"
+      if( d === "Team Snap" || d === "Solo Snap" || d === "Efficiency" || d ===  "Quality" || d === "Initiative" || d ===  "Leader" || d === "Self Starting" || d === "Overall" || d === "5/15/2019" || d === "✵" || d === "5/31/2019" || d === "☂" || d === "⚶" || d === "ꗈ" || d === "6/15/2019"){
+        return '<th>'+ d +"</th>"
       }else{
-        return '<td class="cell">'+ d +"</td>"
+        return '<td class="cell">'+ d +'</td>'
         }
     
     }).join("") + "</tr>" ;
@@ -79,20 +84,19 @@ function statsModal(){
 
 }
 
-function testFuncs(){
-  
-   Logger.log(sheet2htmlTableHome());
-};
+
 
 
 /*
  * @param(string) sheetName is the name of the sheet as a string
+ * this is called from js.html and callback goes to js.html
  */
 function getSheetObj2headers(sheetName) {
  
   var sheet = ss.getSheetByName(sheetName).getDataRange().getDisplayValues();
   var name = sheet.shift();
-  return objectSheet(sheet);
+  var sheetObj = objectSheet(sheet);
+  return {'name': sheetName, 'obj': sheetObj};
 }
 
 function getSheetObj(sheetName) {

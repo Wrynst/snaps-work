@@ -3,7 +3,7 @@ var allSheets         = ss.getSheets();
 var snaps             = getSheetObj('Snaps');
 var allEmployees      = getSheetObj('Roster');
 var employeeUser      = userNamer();
-var empSheet          = getSheetObj(employeeUser.name);
+//var empSheet          = getSheetObj(employeeUser.name);
 var allEmpNameEmail   = employeeNameAndEmailList();
 
 
@@ -46,8 +46,8 @@ function getUserStats(){
 
 }
 
-function getUserDataFight(){
-  
-  return '<img src="https://robohash.org/'+ employeeUser['name'] +'.png?set=set4&size=50x50"><br><h1>'+ employeeUser['name'] +'</h1>';
-
-}
+//function userNamer(){
+//  
+//  return '<img src="https://robohash.org/'+ employeeUser['name'] +'.png?set=set4&size=50x50"><br><h1>'+ employeeUser['name'] +'</h1>';
+//
+//}
