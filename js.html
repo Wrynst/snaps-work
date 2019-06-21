@@ -7,28 +7,28 @@
 window.addEventListener( 'load', function() {
   
   google.script.run.withSuccessHandler( displayDataFromArrayOfObj ).makeTables( leaderboardList );
-
+  google.script.run.withSuccessHandler(insert).employeeUser('name');
  // google.script.run.withSuccessHandler( displayData3 ).getUserDataFight();                  //
  // google.script.run.withSuccessHandler(displayNav).makeNavButtons();
 })
   //Display Individual Player Data from Sheets
   // displayDataHome callback function with data from functions.gs?
   function displayDataHome(data){
-  var dataElement = document.getElementById("one");  
-  var sheetData = data.obj;
-  var name = data.name;
+    var dataElement = document.getElementById("one");  
+    var sheetData = data.obj;
+    var name = data.name;
   
-  var htmlData = '<div class="w3-container"><ul class="w3-ul w3-small" width="40%"><li><img src="https://robohash.org/' + name + '.png?set=set4&size=100x100" class="cat-stats" style="position:relative;"><span class="tag w3-tag w3-transparent w3-xlarge" style=" color: #911; padding: 1px 10px; border: 0; transform: translate(-70%, 200%) rotate(-5deg); text-shadow: 1px 1px 1px #eaeaea;">'+ name +' </i><i class="fas fa-paw"></i></span><span class="close" onclick="nateclose(this.class)">&times;</span></li>';
+    var htmlData = '<div class="w3-container"><ul class="w3-ul w3-small" width="40%"><li><img src="https://robohash.org/' + name + '.png?set=set4&size=100x100" class="cat-stats" style="position:relative;"><span class="tag w3-tag w3-transparent w3-xlarge" style=" color: #911; padding: 1px 10px; border: 0; transform: translate(-70%, 200%) rotate(-5deg); text-shadow: 1px 1px 1px #eaeaea;">'+ name +' </i><i class="fas fa-paw"></i></span><span class="close" onclick="nateclose(this.class)">&times;</span></li>';
   
-  for( row in sheetData ){
-    if( !sheetData[row].name ){
-      continue;
-    }else{
-      htmlData += '<li class="w3-small">' + sheetData[row].round1 + ' <span class="fa-layers fa-fw"><i style=' + (sheetData[row].type === 'Team' ? "color:#0b7013" : "color:#26396b") + ' class="fas ' + (sheetData[row].event === 'Initiative' ? 'fa-certificate" data-fa-transform="shrink-2">' : 'fa-comment" data-fa-transform="shrink-3">') +  '</i><span class="fa-layers-text fa-inverse w3-vt323" data-fa-transform="down-1" style="font-size:12px;font-weight:900">' + sheetData[row].points + '</span></span><a class="fancy-link w3-tooltip">'+ sheetData[row].title +' <i class="fal fa-info"></i><span class="tool w3-text w3-tag w3-round w3-animate-opacity">' + sheetData[row].why + '</span></a></li>';
+    for( row in sheetData ){
+      if( !sheetData[row].name ){
+        continue;
+      }else{
+        htmlData += '<li class="w3-small">' + sheetData[row].round1 + ' <span class="fa-layers fa-fw"><i style=' + (sheetData[row].type === 'Team' ? "color:#0b7013" : "color:#26396b") + ' class="fas ' + (sheetData[row].event === 'Initiative' ? 'fa-certificate" data-fa-transform="shrink-2">' : 'fa-comment" data-fa-transform="shrink-3">') +  '</i><span class="fa-layers-text fa-inverse w3-vt323" data-fa-transform="down-1" style="font-size:12px;font-weight:900">' + sheetData[row].points + '</span></span><a class="fancy-link w3-tooltip">'+ sheetData[row].title +' <i class="fal fa-info"></i><span class="tool w3-text w3-tag w3-round w3-animate-opacity">' + sheetData[row].why + '</span></a></li>';
+      }
     }
-  }
-  htmlData += '</ul></div>';
-  dataElement.innerHTML = htmlData;
+    htmlData += '</ul></div>';
+    dataElement.innerHTML = htmlData;
 }
 // Gets Sheets Data from Loading page google script run makeTables and displays it by changing the inner html of the tag with the ID provided by 'name' property of object in the array.
   function displayDataFromArrayOfObj(data){
@@ -43,24 +43,24 @@ window.addEventListener( 'load', function() {
   dataElement.innerHTML =  data;
 }
 
-  tabs.forEach(tab => {
-    tab.addEventListener("click", e => {
-      e.preventDefault();
-      removeActiveTab();
-      addActiveTab(tab);
-    });
-  })
+tabs.forEach(tab => {
+  tab.addEventListener("click", function(e) {
+    e.preventDefault();
+    removeActiveTab();
+    addActiveTab(tab);
+  });
+});
 
-  const removeActiveTab = () => {
-    tabs.forEach(tab => {
-      tab.classList.remove("is-active");
-    });
-    sections.forEach(section => {
+const removeActiveTab = function() {
+  tabs.forEach(function(tab) { 
+    tab.classList.remove("is-active")
+    });  
+    sections.forEach(function(section) {
       section.classList.remove("is-active");
     });
-  }
+  };
 
-  const addActiveTab = tab => {
+  const addActiveTab = function(tab) {
     tab.classList.add("is-active");
     const href = tab.querySelector("a").getAttribute("href");
     const matchingSection = document.querySelector(href);
@@ -77,37 +77,9 @@ window.addEventListener( 'load', function() {
     }
   }
   
-//  document.addEventListener("DOMContentLoaded", function(){
-//    google.script.run.withSuccessHandler(generateTable).getSheetObj("leaderboard");
-//    
-//  });
-//  function makeTable(gsValue){
-//    var tbody = document.getElementById("table1");
-//    tbody.innerHtml = "<h1>hi</h1>";
-//  
-//  }
-
-
- 
-  
-//  
-//
-//function generateTable(dataArray){
-//    console.log(dataArray);
-//    var tbody = document.getElementById("table1");
-//    
-//    dataArray.forEach(function(r){
-//      
-//      var row = document.createElement("tr");
-//        r.forEach(function(c){
-//        var col = document.createElement("td");
-//        col.textContent = r[c];
-//        row.appendChild(col);
-//      });
-//      tbody.appendChild(row);
-//    });
-//  }
-
+var getUserEmail = function(){
+  google.script.run.onSuccessHandler(console.log(data)).getUser();
+}
 
 // Accordian on leaderboard page    
 var acc = document.getElementsByClassName("accordion");
@@ -139,17 +111,24 @@ var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 
 function nateclose(className){
- 
- 
-  modal.style.display = "none";
+  modal.style.display = "none"; 
+}
 
+//function findEmail(){
+// google.script.run.withSuccessHandler(insert).getUserEmail();
+//}
+
+function insert(data){
+  var player = document.getElementById('playerNamed');
+  
+  player.innerHTML = '<div class="w3-container"><ul class="w3-ul w3-small" width="40%"><li><img src="https://robohash.org/' + data + '.png?set=set4&size=100x100" class="cat-stats" style="position:relative;"><span class="tag w3-tag w3-transparent w3-jumbo" style=" color: #911; padding: 1px 10px; border: 0; transform: translate(-70%, 100%) rotate(-10deg); text-shadow: 1px 1px 1px #eaeaea;">'+ data +' </i><i class="fas fa-paw"></i></span><span class="close" onclick="nateclose(this.class)">&times;</span></li>';
+  
    
 }
 
-
 var loading = function (elemId) {
   var e = document.getElementById(elemId);
-  e.innerHTML = '<i class="fal animated wobble infinite fa-paw fa-5x"></i>';
+  e.innerHTML = '<i class="fal animated flip infinite fa-paw fa-5x" style="color:#9b2254"></i>';
 }
 
 // when the target is clicked go to sheets and then display when it comes back
@@ -186,7 +165,42 @@ window.onclick = function(event) {
 
     node.addEventListener('animationend', handleAnimationEnd)
 } 
-  
+
+//-----------------------------------------------------------------------------------------------fight--------------------------------------------
+
+//function Game(){
+//  var gameRunning  = false;
+//  var playerHP     = 55;
+//  var enemyHP      = 70;
+//  var userEmail    = '';
+//  var userName     = '';
+//  var self         = this;
+//  var battleLog    = [];
+//  
+//  function startGame(){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                /  ){
+//    self.gameRunning = true;
+//    self.playerHP    = 100;
+//    self.enemyHP     = 100;
+//    self.userEmail   = findEmail();
+//    self.userName    = userNamer();
+//  }
+//}
+//  
+//function Fighter(max-health, name, numOfSpecialAttacks, numOfHeals){
+//  this.max-health           = max-health;
+//  this.name                 = name;
+//  this.numOfSpecialAttacks  = numOfSpecialAttacks;
+//  this.numOfHeals           = numOfHeals;
+//
+//}  
+//function adjustHP( enemyOrPlayerId , numberOfPointsLeft ){
+//  var bar = document.getElementById( enemyOrPlayerId );
+//  bar.innerHTML   = numberOfPointsLeft + '%';
+//  bar.style.width = numberOfPointsLeft + '%';
+//     
+//   
+//   }
+  //animateCSS('#tab-zero',bounceIn,animateCSS('#tab-zero',bounceOut ));
 //  function move() {
 //  var elem = document.getElementById("myBar");   
 //  var width = 100;

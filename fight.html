@@ -1,54 +1,54 @@
 <div id="app">
   <h1 class="title">ROUND 1</h1>
-  <section class="w3-container w3-border">
-    <div class="w3-row w3-border">
+  <section>
+    <div></div>
       
       <div id="userFight"></div>
     
-  <p> {{ username }} Named</p>
-      <div class="healthbar w3-half w3-container w3-green">
-        <div
+          <p> {{ userEmail }} Named</p><button onclick='getUser()'></button>
+        <div class="healthbar w3-green">
+          <div
                 class="healthbar w3-center"
-                style="background-color: green; margin: 0; color: white;"
+                style="background-color: #172; margin: 0; color: white;"
                 :style="{width: playerHealth + '%'}">
-            {{ playerHealth }}
-        </div>
-      </div>
-    </div>
-    
-    <div class="w3-col s6">
-      <div>
-        <img class="title-fight" src="https://thenypost.files.wordpress.com/2015/06/tiny_baby_deer.jpg" >
-          <h1 class="w3-center">Dwarf Deer</h1>
-        
-          <div class="healthbar w3-half w3-container">
-            <div
-              class="healthbar w3-center"
-              style="background-color: green; margin: 0; color: grey;"
-              :style="{width: monsterHealth + '%'}">
-              {{ monsterHealth }}
-            </div>
+            {{ userEmail }}<i class="fal fa-swords"></i>{{ playerHealth }}
           </div>
+        </div>
+     
     
-      </div>
-      </div>
-    </section>
-    <section class="w3-row controls" v-if="!gameIsRunning">
 
-        <div class="s12 w3-col">
-            <button id="start-game" class="button button-one" @click="startGame">Clean that meow!</button>
+    <div>
+      <img class="title-fight" src="https://thenypost.files.wordpress.com/2015/06/tiny_baby_deer.jpg" >
+        <h1 class="w3-center">Dwarf Deer</h1>
+      
+        <div class="healthbar ">
+          <div
+            class="healthbar w3-center"
+            style="background-color: green; margin: 0; color: grey;"
+            :style="{width: monsterHealth + '%'}">
+            {{ monsterHealth }}
+          </div>
+        </div>
+  
+      </div>
+    
+    </section>
+    <section class="controls" v-if="!gameIsRunning">
+
+        <div class="">
+            <button id="start-game" class="abutton" @click="startGame">Clean that meow!</button>
         </div>
     </section>
-    <section class="w3-row controls" v-else>
-        <div class="s12 w3-col">
+    <section class="controls" v-else>
+        <div class="">
             <button id="attack" @click="attack">Clean!</button>
             <button id="special-attack" @click="specialAttack">Efficient Clean!</button>
             <button id="heal" @click="heal">Lick Wounds</button>
             <button id="give-up" @click="giveUp">Run Away</button>
         </div>
     </section>
-    <section class="w3-row log" v-if="turns.length > 0">
-        <div class="s12 w3-col">
+    <section class=" log" v-if="turns.length > 0">
+        <div class="">
             <ul>
                 <li v-for="turn in turns"
                     :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">

@@ -1,13 +1,13 @@
-function sheetValues(){
+var sheetValues = function (sheetName){
   var sp = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = sp.getSheetByName("leaderboard");
-  var values = sheet.getDataRange().getValues();
-  return values;
+  var sheet = sp.getSheetByName(sheetName);
+  var values = sheet.getDataRange( ) .getValues( );
+  return this;
 }
 
-function testFuncs(){
-  
-   Logger.log(makeTables(['leaderboard1','leaderboard2', 'leaderboard3']));
+function testFuncs( ) {
+  Logger.log(sheetValues( 'Totals' ) );
+  // Logger.log( makeTables( [ 'leaderboard1', 'leaderboard2', 'leaderboard3' ] ) );
 };
 
 function makeTables(arrayofSheetNames){
@@ -23,30 +23,36 @@ function makeTables(arrayofSheetNames){
 
 function sheet2htmlTable(sheetName){
  
-  
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(sheetName) ;
+  var lastrow = sheet.getLastRow();
+  var lastcol = sheet.getLastColumn();
   var values = sheet.getDataRange().getValues() ;
-  
+  Logger.log('last row: %s \n last col: %s', lastrow,lastcol);
   var htmlStr = '<table class="w3-table-all">' ; // open with the HTML tag <table>
+  
   htmlStr += values.map(function(row) {
-  //each row in values array contribute for an HTML table row :
-   // <tr> htmlRow </tr>
-    return "<tr>" + row.map(function(d){
+    Logger.log(row[0]);
+    if( row[0] != ''){
+
+      return "<tr>" + row.map(function(d){
       
-      for ( i=0; i<allEmpNameEmail.length; i++){ 
-        if(allEmpNameEmail[i].name === d ) {
-         // Logger.log(allEmpNameEmail[i].name);
-          return '<td><button id="'+ d +'" onclick="natemodal(this.id)" class="fancy-link">'+ d +'</button></td>';
+        for ( i=0; i < allEmpNameEmail.length; i++){ 
+          if(allEmpNameEmail[i].name === d ) {
+          // Logger.log(allEmpNameEmail[i].name);
+            return '<td><button id="'+ d +'" onclick="natemodal(this.id)" class="fancy-link">'+ d +'</button></td>';
         } 
       }
         
       if( d === "Team Snap" || d === "Solo Snap" || d === "Efficiency" || d ===  "Quality" || d === "Initiative" || d ===  "Leader" || d === "Self Starting" || d === "Overall" || d === "5/15/2019" || d === "✵" || d === "5/31/2019" || d === "☂" || d === "⚶" || d === "ꗈ" || d === "6/15/2019"){
+       
         return '<th>'+ d +"</th>"
       }else{
+        
         return '<td class="cell">'+ d +'</td>'
-        }
-    
-    }).join("") + "</tr>" ;
+      }
+      }).join("") + "</tr>" ;
+    }
   }).join("");
   htmlStr += "</table>" ; // close with the HTML tag </table>
  

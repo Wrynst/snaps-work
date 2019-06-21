@@ -2,7 +2,8 @@
   new Vue({
     el: '#app',
     data: {
-      username: '',
+      //userName: '',
+      userEmail: '',
       playerHealth: 81,
       monsterHealth: 80,
      // playerHeals: 0,
@@ -11,20 +12,24 @@
       turns: []
   //  
     },
+//    computed:
+//      getName: function(){
+//        google.script.run.withSuccessHandler(function ( user ) { vm.username = user.name; }).userNamer();
+//    },
+    
     methods: {
-      getUserData: function (){
-        var vm = this;
-        google.script.run.withSuccessHandler(function ( user ) { return vm.username = user.name; }).userNamer();
-           
-      },
+
       startGame: function () {
+        this.userEmail = this.getUserData();
         this.gameIsRunning = true;
         this.playerHealth = 100;
         this.monsterHealth = 100;
         this.turns = [];
       },
+      
       attack: function () {
-        var damage = this.calculateDamage(2, 6);
+        var damage = this.calculateDamage(1, 2) * 10;
+        
         this.monsterHealth -= damage;
         this.turns.unshift({
             isPlayer: true,
@@ -72,6 +77,11 @@
                 text: 'Monster hits Player for ' + damage
             });
         },
+        getUserData: function (){
+            var vm = this;
+            google.script.run.withSuccessHandler(function ( user ) { vm.userEmail = user; }).getUserEmail();
+             
+        },
         calculateDamage: function(min, max) {
             return Math.max(Math.floor(Math.random() * max) + 1, min);
         },
@@ -94,5 +104,5 @@
             return false;
         }
     }
-}); // .getPlayersList();
+}).getUserData(); // .getPlayersList();
 </script>
