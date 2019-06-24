@@ -105,8 +105,8 @@ footer {
 button {
     font-size: 20px;
     background-color: transparent;
-    border: 2px solid transparent;
-   
+    border: 2px solid #26396b;
+    border-radius: 3px;
     padding: 0px 12px;
    
     margin-bottom: 2px;   
@@ -159,19 +159,6 @@ button {
   writing-mode: vertical-rl;
 }
 
-
-.kitty-card{
-  background-image:url("https://arnold.systems/icons/cat-box.png"),  url("https://arnold.systems/icons/cat-food.png"), linear-gradient(to top right,  rgba(0,0,0,0) 50%,rgba(38,57,100,1) 55%, rgba(155,34,84,1) 69%, rgba(0,0,0,0) 80%);
-  background-size: 100px, 40px, contain; 
-  background-repeat: no-repeat;
-  background-position: left, right 50px bottom 20px;
- 
-}
-
-.home-title{
-  background-color: rgba(250,250,250,0.6);
-
-}
 .individual, footer{
   font-size: 12px;
 
@@ -193,8 +180,11 @@ button {
 .my-tabs{
 
 }
+#tab-two {
+  width: 96vw;
 
-#tab-one, #tab-two, #tab-zero, #home{
+}
+#tab-one, #tab-zero, #home{
   width: 100%;
   margin: 30px 0;
   padding: 30px 0;
@@ -210,7 +200,7 @@ button {
 
 }
 #tab-three{
-  font-family: 'Stylish', sans-serif;
+ 
   padding: 30px 0;
   width: 100vw;
   margin: 0;
@@ -378,18 +368,23 @@ button {
     linear-gradient(90deg, transparent 14px, #fbf 14px, #fbf 15px, transparent 14px),
     linear-gradient(#eef .1em, transparent .1em);
   background-size: 100% 1.1em;
-  padding: 50px;
+  padding:15px;
+  max-width: 600px;
+  
 }
 
 .snip1507 {
-  font-family: 'Stylish', sans-serif;
+ 
   position: relative;
   overflow: hidden;
-  width: 90vw;
+  max-width: 100%;
+  min-width: 230px;
+  max-width: 315px;
   color: #ffffff;
   text-align: left;
   font-size: 16px;
   background-color:rgba(0,0,0,0.2);
+  margin: 10px auto;
 }
 
 
@@ -424,7 +419,7 @@ button {
   height: 20px;
   border: 3px ridge #a2a2a2;
   background-color: rgb(155,34,84,1);
-  font-family: 'Stylish', sans-serif;
+  
   top: 0;
   left: 50%;
   -webkit-transform: translate(-50%, -50%) rotate(45deg);
@@ -439,7 +434,7 @@ button {
 }
 
 .snip1507 h3 {
-font-family: 'Stylish', sans-serif;
+
   font-size: 20px;
   font-variant: small-caps;
 
@@ -447,7 +442,7 @@ font-family: 'Stylish', sans-serif;
 }
 
 .snip1507 h5 {
- font-family: 'Stylish', sans-serif;
+ 
   font-weight: normal;
   font-size: 12px;
 }
@@ -468,14 +463,7 @@ font-family: 'Stylish', sans-serif;
   filter: sepia(0%) blur(0px);
 }
 
-.title-fight{
-  border-radius: 50%;
-  border: 3px groove white;
-  
-  box-shadow: 2px 2px 3px;
-  height: 75px;
- 
-}
+
 
 input:focus,
 select:focus,

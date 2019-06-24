@@ -46,7 +46,7 @@ function testGs(){
   var userObj = arrayGone[0]; 
   var userName = userObj.name;
   var userEmail = userObj.email;
-    Logger.log(userName);
+    Logger.log(userObj);
   }
     
 

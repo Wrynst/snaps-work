@@ -7,7 +7,7 @@
 window.addEventListener( 'load', function() {
   
   google.script.run.withSuccessHandler( displayDataFromArrayOfObj ).makeTables( leaderboardList );
-  google.script.run.withSuccessHandler(insert).employeeUser('name');
+  //google.script.run.withSuccessHandler(insert).employeeUser('name');
  // google.script.run.withSuccessHandler( displayData3 ).getUserDataFight();                  //
  // google.script.run.withSuccessHandler(displayNav).makeNavButtons();
 })
@@ -118,13 +118,11 @@ function nateclose(className){
 // google.script.run.withSuccessHandler(insert).getUserEmail();
 //}
 
-function insert(data){
-  var player = document.getElementById('playerNamed');
-  
-  player.innerHTML = '<div class="w3-container"><ul class="w3-ul w3-small" width="40%"><li><img src="https://robohash.org/' + data + '.png?set=set4&size=100x100" class="cat-stats" style="position:relative;"><span class="tag w3-tag w3-transparent w3-jumbo" style=" color: #911; padding: 1px 10px; border: 0; transform: translate(-70%, 100%) rotate(-10deg); text-shadow: 1px 1px 1px #eaeaea;">'+ data +' </i><i class="fas fa-paw"></i></span><span class="close" onclick="nateclose(this.class)">&times;</span></li>';
-  
-   
-}
+//function insert(data){
+//  var player = document.getElementById('playerNamed');
+//  
+//  player.innerHTML = '<div class="w3-container"><img src="https://robohash.org/' + data + '.png?set=set4&size=100x100" class="cat-stats title-fight" style="background-image: radial-gradient(circle, white, rgba(137,174,231,1),rgba(0,0,0,0)); position:relative;"><span class="tag w3-tag w3-xlarge" style="background: transparent; color: #000; padding: 1px 10px; border: 0; transform: translate(-90%, 125%) rotate(1deg); text-shadow: 1px 1px 1px #911;">'+ data +' </i><i class="fas fa-paw-claws"></i></span>';  
+//}
 
 var loading = function (elemId) {
   var e = document.getElementById(elemId);
@@ -166,58 +164,6 @@ window.onclick = function(event) {
     node.addEventListener('animationend', handleAnimationEnd)
 } 
 
-//-----------------------------------------------------------------------------------------------fight--------------------------------------------
 
-//function Game(){
-//  var gameRunning  = false;
-//  var playerHP     = 55;
-//  var enemyHP      = 70;
-//  var userEmail    = '';
-//  var userName     = '';
-//  var self         = this;
-//  var battleLog    = [];
-//  
-//  function startGame(){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                /  ){
-//    self.gameRunning = true;
-//    self.playerHP    = 100;
-//    self.enemyHP     = 100;
-//    self.userEmail   = findEmail();
-//    self.userName    = userNamer();
-//  }
-//}
-//  
-//function Fighter(max-health, name, numOfSpecialAttacks, numOfHeals){
-//  this.max-health           = max-health;
-//  this.name                 = name;
-//  this.numOfSpecialAttacks  = numOfSpecialAttacks;
-//  this.numOfHeals           = numOfHeals;
-//
-//}  
-//function adjustHP( enemyOrPlayerId , numberOfPointsLeft ){
-//  var bar = document.getElementById( enemyOrPlayerId );
-//  bar.innerHTML   = numberOfPointsLeft + '%';
-//  bar.style.width = numberOfPointsLeft + '%';
-//     
-//   
-//   }
-  //animateCSS('#tab-zero',bounceIn,animateCSS('#tab-zero',bounceOut ));
-//  function move() {
-//  var elem = document.getElementById("myBar");   
-//  var width = 100;
-//  var id = setInterval(frame, 1);
-//  function frame() {
-//    var hit = Math.random() * 100 ;
-//    width -= hit;
-//    if (width <= 0) {
-//      width = 0;
-//      //diplay win loss
-//      document.getElementsByClassName("percent").innerHTML = 'You Lost';
-//    } else {
-// 
-//      elem.style.width = width + '%'; 
-//      document.getElementsByClassName("percent").innerHTML = width * 1  + '%';
-//    }
-//  }
-//}
 
 </script>

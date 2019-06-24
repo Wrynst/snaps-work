@@ -3,9 +3,7 @@
   <head>
     <base target="_self">
   
-
-    <?!= include('css'); ?>
-  
+    <?!= include('css'); ?> 
     <?!= include('fight2-css'); ?> 
   <!--  <script src="https://npmcdn.com/vue/dist/vue.js"></script>  -->
     <script src="https://kit.fontawesome.com/121d8e0ae0.js"></script>
@@ -13,7 +11,7 @@
   
   
   <body>
-    <div id="loadit" class="modal">
+  <!--  <div id="loadit" class="modal">
       <div class="dots">
         <div></div>
         <div></div>
@@ -26,19 +24,17 @@
         <div></div>
       </div>
     </div>
-<!-- The Modal -->
+<!-- [---------------------------------The Modal------------------------------] -->
   <div id="myModal" class="modal ">
  
-<!-- Modal content -->
-  <div class="modal-content w3-container " id="one">
- <!-- The Loading Animation -->  
+<!--  |-------------------------------Modal Content--------------------------| -->
+    <div class="modal-content w3-container " id="one">
+       <!-- Insert joke.. er.. content here -->  
 
-  </div>
+    </div>
   </div>
     <div class="my-tabs">
-   
-   
-     
+       
       <nav class="tabs">
         
         <div class="is-active"><a href="#tab-zero"><i class="fal fa-list-ol"></i></a></div>
@@ -46,9 +42,7 @@
         <div><a href="#tab-two"><i class="fal fa-address-card"></i></a></div>
         <div><a href="#tab-three"><i class="fal fa-paw-claws" ></i></a></div> 
       </nav>
-      
-
-      
+         
       <section class="tab-content is-active" id="tab-zero">
         <?!= include('leaderboard'); ?>
       </section>
@@ -66,13 +60,12 @@
       </section>
 
     </div>
-    <footer>
     
+    <footer> 
      Kleaneh Kitteh 
     </footer>
   
     <?!= include('js'); ?>
-  
     <?!= include('fight2-js'); ?>
   </body>
 </html>

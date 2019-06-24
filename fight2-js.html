@@ -5,20 +5,23 @@ var gameRunning = false;
 // --------FIGHT CONTROLLER----------------------------------------------FIGHT CONTROLLER -----------
 var fightController = (function() {
   
-  var Attack = function(whosMove, whatMove, moveAmount){
-    this.whosMove  = whosMove;
-    this.whatMove  = whatMove;
-    this.moveAmount   = moveAmount;
+  var Attack = function(attackerName, blockerName, moveType, val){
+    this.attackerName = attackerName;
+    this.blockerName  = blockerName;
+    this.moveType     = moveType;
+    this.val          = val;
   };
-  var Special = function(whosMove, whatMove, moveAmount){
-    this.whosMove  = whosMove;
-    this.whatMove  = whatMove;
-    this.moveAmount   = moveAmount;
+  var Special = function(attackerName, blockerName, moveType, val){
+    this.attackerName = attackerName;
+    this.blockerName  = blockerName;
+    this.moveType     = moveType;
+    this.val          = val;
   };
-  var Heal = function(whosMove, whatMove, moveAmount){
-    this.whosMove  = whosMove;
-    this.whatMove  = whatMove;
-    this.moveAmount   = moveAmount;
+  var Heal = function(attackerName, blockerName, moveType, val){
+    this.attackerName = attackerName;
+    this.blockerName  = blockerName;
+    this.moveType     = moveType;
+    this.val          = val;
   };
 
   var data = {
@@ -27,13 +30,13 @@ var fightController = (function() {
       hero: 100,
       boss: 100
     },
-    
-    specialsLeft: {
+    // number of special attacks available
+    special: {
       hero: 0,
       boss: 0
     },
-    
-    healsLeft: {
+    // number of heals available
+    heal: {
       hero: 0,
       boss: 0
     },
@@ -45,23 +48,63 @@ var fightController = (function() {
       lose: false
     }
   };
+  
   return {
-    addMove: function(attackerName, moveType, val) {
-      var newMove;
-      var dmg;
+    getPlayerData: function (playerName){
+      console.log(playerName);
+      return playerName;
+    },
+    
+    getRandomArbitrary: function (min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    },
+    
+    checkMoveValidity: function (attackerName, blockerName, moveType, val) {
+      if(data[moveType][attackerName] <= 0 ){
+          return false;
+        }else{
+          return true;
+        }
+    
+    },
+
+    
+    addMove: function (attackerName, blockerName, moveType, val) {
+      var newMove, error;
+      
+      var adjustDataValues = function(blockerName,moveType, val){
+        data.hp[blockerName] -= val;
+        data[moveType][blockerName] - 1;
+      
+      };
       
       Attack.prototype.damage = function () {
-        return data.hp[attackerName] -= val;
+        return data.hp[blockerName] -= val;
         };
-      
+        
+      Special.prototype.bigHit = function () { //--------write this out to subtract the amount of special attacks left in the pool
+        if(data[moveType][attackerName] <= 0 ){
+          return val = 0;;
+        }else{
+          return data.hp[blockerName] -= val;
+        }
+      };
+        
+      Heal.prototype.healSpell = function () {
+        return data.hp[blockerName] += val;
+        };
+        
       if( moveType === 'attack') {
-        newMove = new Attack(attackerName, moveType, val);
+        newMove = new Attack(attackerName, blockerName, moveType, val);
         newMove.damage();
+        
       } else if( moveType === 'special') {
-        newMove = new Special(attackerName, moveType, val);
+        newMove = new Special(attackerName, blockerName, moveType, val);
+        newMove.bigHit();
         
       } else if( moveType === 'heal') {
-        newMove = new Heal(attackerName, moveType, val);
+        newMove = new Heal(attackerName, blockerName, moveType, val);
+        newMove.healSpell();
       }
       // Push move into battle log
       data.battleLog.push(newMove);
@@ -75,42 +118,68 @@ var fightController = (function() {
     }
   };
 
-
-
 })();
 
 // --------UI CONTROLLER----------------------------------------------UI CONTROLLER -----------
 var UIController = (function() {
   
   var DOMstrings = {
-                     playerAttack  : '#nAttack',
-                     playerSpecial : '#nSpecial',
-                     playerHeal    : '#nHeal',
-                     playerStart   : '#startFight'
+                     playerAttack   : '#nAttack',
+                     playerSpecial  : '#nSpecial',
+                     playerHeal     : '#nHeal',
+                     playerStart    : '#startFight',
+                     battleTextCont : '.battle-text',
+                     playerHealthBar: '.player-hp',
+                     enemyHealthBar : '.enemy-hp'
                    };
+  
+  
   var startFight = document.getElementById("startFight");
   var uiBtns = document.getElementById("ui-btns");
   
   return {
-//    getInput: function() {
-//      return {
-////               attack  :  document.querySelector( DOMstrings.playerAttack  ).addEventListener( 'click' , nateAttack ),
-////               special :  document.querySelector( DOMstrings.playerSpecial ).addEventListener( 'click' , nateSpecial ),
-////               heal    :  document.querySelector( DOMstrings.playerHeal    ).addEventListener( 'click' , nateHeal )
-////               
-//             };
-//    },
+
+    // Add player Avatar and Name
+    setPlayerData: function (nameEmail){
+      setTimeout(function(){
+    
+      var playerAvatar = document.getElementById('playerNamed');
+      playerAvatar.innerHTML = '<div class="w3-container"><img src="https://robohash.org/' + nameEmail.name + '.png?set=set4&size=100x100" class="cat-stats title-fight" style="background-image: radial-gradient(circle, white, rgba(137,174,231,1),rgba(0,0,0,0)); position:relative;"><span class="tag w3-tag w3-xlarge" style="background: transparent; color: #000; padding: 1px 10px; border: 0; transform: translate(-90%, 125%) rotate(3deg); text-shadow: 1px 1px 1px #911;">'+ nameEmail.name +' </i><i class="fas fa-paw-claws"></i></span></div>';  
+      console.log(nameEmail.name +" " +nameEmail.email);
+      return nameEmail;
+      }, 0);
+    },
+    
+    // -- Hides and reveals buttons after startgame
     showHideUI: function() {
       startFight.classList.toggle("w3-hide");
       uiBtns.classList.toggle("w3-hide");
     },
-    addListItem: function( obj, type){
+    
+    // --  Adds a list item to the battle log
+    addListItem: function( obj, moveType){
+      var html, newHtml, element;
       
-      // Create HTML String with Placeholder Text
+      // -- Create HTML String with Placeholder Text
+      if( moveType === 'attack') {
+        html = '<li class="battle-words bt-a animated bounceIn">%attackerName% attacks %blockerName% for %val%!</li>';
+     
+      } else if ( moveType === 'special') {
+        html = '<li class="battle-words bt-s animated flipInY">%attackerName% winds up for a big attack unleashing %val% of damage on %blockerName%!</li>';
+     
+      } else if ( moveType === 'heal') {
+        html = '<li class="battle-words bt-h animated jackInTheBox">%attackerName% smiles as a healspell heals for %val%!</li>';
+      }
+      
       
       // Replace the Placeholder text with some actual data
+      newHtml = html.replace('%attackerName%', obj.attackerName);
+      newHtml = newHtml.replace('%val%', obj.val);
+      newHtml = newHtml.replace('%blockerName%', obj.blockerName);
       
-      //
+      // Insert HTML into the DOM
+      element = DOMstrings.battleTextCont;
+      document.querySelector(element).insertAdjacentHTML('afterbegin', newHtml);
     },
     getDOMStrings: function() {
       return DOMstrings;
@@ -124,6 +193,10 @@ var UIController = (function() {
 
 // GLOBAL APP CONTROLLER -------------------------------------------
 var controller = ( function( fightCtrl, UICtrl ) {
+  var newItem;
+  
+  //var heroNamed = UICtrl.setPlayerData();
+  //console.log(heroNamed.name);
   
   var setupEventListeners = function() {
     document.querySelector( DOMstr.playerStart   ).addEventListener( 'click' ,   startClean   ); 
@@ -132,48 +205,68 @@ var controller = ( function( fightCtrl, UICtrl ) {
     document.querySelector( DOMstr.playerHeal    ).addEventListener( 'click' ,   fillBottles  );
   }
   
-function getRandomArbitrary(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
+  var bossMove = function() {
+    setTimeout(function(){
+      newItem = fightCtrl.addMove('boss', 'hero', 'attack', fightCtrl.getRandomArbitrary(2, 4));
+      UICtrl.addListItem(newItem, 'attack');    
+      fightCtrl.testing();
+    }, 2000);
+  }
   
+ 
   
-  
+ // UICtrl.setPlayerData(fightCtrl.getPlayerData());
     
   var DOMstr = UICtrl.getDOMStrings();   
     
   var startClean = function() {
+    
+    // hide the startFight Button
     UICtrl.showHideUI();
-  // hide the startFight Button
-  
-  // Display the fight console
+    // Display the fight console
   
   // get the player stats
-  
+ // UICtrl.setPlayerData(fightCtrl.getPlayerData());
+ // var heroNamed = fightCtrl.getPlayerData();
   // start the game
     
     
     }
   var cleanAttack = function() { 
-    fightCtrl.addMove('hero', 'attack', getRandomArbitrary(0, 2));
-    fightCtrl.addMove('boss', 'attack', getRandomArbitrary(1, 4));
-    fightCtrl.testing();
-  }
-  var specialClean = function() { 
-    fightCtrl.addMove('hero', 'special', getRandomArbitrary(2, 4));
-    fightCtrl.addMove('boss', 'attack', getRandomArbitrary(1, 4));
-  }
-  var fillBottles = function() { 
-    fightCtrl.addMove('hero', 'heal', getRandomArbitrary(2, 4));
-    fightCtrl.addMove('boss', 'attack', getRandomArbitrary(1, 4));
+    
+    newItem = fightCtrl.addMove('hero', 'boss', 'attack', fightCtrl.getRandomArbitrary(1, 2));
+    UICtrl.addListItem(newItem,  'attack');
+   
+    bossMove();
+   
 
   }
+  
+  var specialClean = function() { 
+  
+    newItem = fightCtrl.addMove('hero', 'boss', 'special', fightCtrl.getRandomArbitrary(2, 4));
+    UICtrl.addListItem(newItem, 'special');
+   
+    bossMove();
+  }
+  
+  var fillBottles = function() { 
+    
+    newItem = fightCtrl.addMove('hero', 'hero', 'heal', fightCtrl.getRandomArbitrary(2, 4));
+    UICtrl.addListItem(newItem, 'heal');
+    
+    bossMove();
+
+  }
+  
  
    return {
      init: function(){
-       
+       google.script.run.withSuccessHandler(UICtrl.setPlayerData).employeeUser('object');
        gameRunning = true;
        setupEventListeners();
        console.log("Is Game running? "+ gameRunning);
+       //console.log(name);
     }
   }
  
