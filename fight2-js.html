@@ -23,7 +23,10 @@ var fightController = (function() {
     this.moveType     = moveType;
     this.val          = val;
   };
-
+  var Error = function(attackerName, moveType){
+    this.attackerName = attackerName;
+    this.moveType     = moveType;
+  }
   var data = {
     
     hp: {
@@ -32,12 +35,12 @@ var fightController = (function() {
     },
     // number of special attacks available
     special: {
-      hero: 0,
+      hero: 1,
       boss: 0
     },
     // number of heals available
     heal: {
-      hero: 0,
+      hero: 1,
       boss: 0
     },
     
@@ -59,50 +62,50 @@ var fightController = (function() {
       return Math.floor(Math.random() * (max - min) + min);
     },
     
-    checkMoveValidity: function (attackerName, blockerName, moveType, val) {
-      if(data[moveType][attackerName] <= 0 ){
+    checkMoveValidity: function (attackerName, blockerName, moveType) {
+      if( data[ moveType ][ attackerName ] <= 0 ) {
           return false;
         }else{
           return true;
         }
-    
     },
-
+    addError: function(attackerName, moveType){
+      var newError;
+      newError = new Error(attackerName, moveType);
+    },
     
     addMove: function (attackerName, blockerName, moveType, val) {
-      var newMove, error;
+      var newMove;
       
-      var adjustDataValues = function(blockerName,moveType, val){
-        data.hp[blockerName] -= val;
-        data[moveType][blockerName] - 1;
-      
-      };
+//      var adjustDataValues = function(blockerName,moveType, val){
+//        data.hp[blockerName] -= val;
+//        data[moveType][blockerName] - 1;
+//      
+//      };
       
       Attack.prototype.damage = function () {
-        return data.hp[blockerName] -= val;
-        };
         
-      Special.prototype.bigHit = function () { //--------write this out to subtract the amount of special attacks left in the pool
-        if(data[moveType][attackerName] <= 0 ){
-          return val = 0;;
-        }else{
-          return data.hp[blockerName] -= val;
-        }
+        return data.hp[blockerName] -= val;
+      };
+        
+      Special.prototype.bigHit = function () { 
+        data[moveType][attackerName] -= 1;
+        return data.hp[blockerName] -= val;
       };
         
       Heal.prototype.healSpell = function () {
         return data.hp[blockerName] += val;
-        };
+      };
         
       if( moveType === 'attack') {
         newMove = new Attack(attackerName, blockerName, moveType, val);
         newMove.damage();
-        
-      } else if( moveType === 'special') {
+      }
+        else if( moveType === 'special') {
         newMove = new Special(attackerName, blockerName, moveType, val);
         newMove.bigHit();
-        
-      } else if( moveType === 'heal') {
+      }  
+        else if( moveType === 'heal') {
         newMove = new Heal(attackerName, blockerName, moveType, val);
         newMove.healSpell();
       }
@@ -159,7 +162,7 @@ var UIController = (function() {
     // --  Adds a list item to the battle log
     addListItem: function( obj, moveType){
       var html, newHtml, element;
-      
+      console.log(Object.keys(obj));
       // -- Create HTML String with Placeholder Text
       if( moveType === 'attack') {
         html = '<li class="battle-words bt-a animated bounceIn">%attackerName% attacks %blockerName% for %val%!</li>';
@@ -169,8 +172,10 @@ var UIController = (function() {
      
       } else if ( moveType === 'heal') {
         html = '<li class="battle-words bt-h animated jackInTheBox">%attackerName% smiles as a healspell heals for %val%!</li>';
+      } 
+        else if ( moveType === 'error') {
+        html = '<li class="battle-words bt-e animated hinge delay-2s ">%attackerName%, are you out of that?! Try Again. </li>';
       }
-      
       
       // Replace the Placeholder text with some actual data
       newHtml = html.replace('%attackerName%', obj.attackerName);
@@ -193,7 +198,7 @@ var UIController = (function() {
 
 // GLOBAL APP CONTROLLER -------------------------------------------
 var controller = ( function( fightCtrl, UICtrl ) {
-  var newItem;
+  var newItem, newError;
   
   //var heroNamed = UICtrl.setPlayerData();
   //console.log(heroNamed.name);
@@ -233,7 +238,7 @@ var controller = ( function( fightCtrl, UICtrl ) {
     
     }
   var cleanAttack = function() { 
-    
+
     newItem = fightCtrl.addMove('hero', 'boss', 'attack', fightCtrl.getRandomArbitrary(1, 2));
     UICtrl.addListItem(newItem,  'attack');
    
@@ -243,13 +248,18 @@ var controller = ( function( fightCtrl, UICtrl ) {
   }
   
   var specialClean = function() { 
-  
-    newItem = fightCtrl.addMove('hero', 'boss', 'special', fightCtrl.getRandomArbitrary(2, 4));
-    UICtrl.addListItem(newItem, 'special');
+    var can = fightCtrl.checkMoveValidity('hero', 'boss', 'special');
+    if (!can){
+      newError = fightCtrl.addError('hero', 'special') ;
+      UICtrl.addListItem(newError,  'error');
+    
+    }else{
+      newItem = fightCtrl.addMove('hero', 'boss', 'special', fightCtrl.getRandomArbitrary(2, 4));
+      UICtrl.addListItem(newItem, 'special');
    
-    bossMove();
+      bossMove();
   }
-  
+  };
   var fillBottles = function() { 
     
     newItem = fightCtrl.addMove('hero', 'hero', 'heal', fightCtrl.getRandomArbitrary(2, 4));
