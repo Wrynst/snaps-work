@@ -1,6 +1,6 @@
 var sheetValues = function (sheetName){
-  var sp = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = sp.getSheetByName(sheetName);
+  var ss = SpreadsheetApp.openById('1UngJuhGa1Pew9HdMp5vsoS45lUFXxNwmoYq8sT1FckE');
+  var sheet = ss.getSheetByName(sheetName);
   var values = sheet.getDataRange( ) .getValues( );
   return this;
 }
@@ -23,7 +23,8 @@ function makeTables(arrayofSheetNames){
 
 function sheet2htmlTable(sheetName){
  
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.openById('1UngJuhGa1Pew9HdMp5vsoS45lUFXxNwmoYq8sT1FckE');
+  var sheet = ss.getSheetByName(sheetName);
   var sheet = ss.getSheetByName(sheetName) ;
   var lastrow = sheet.getLastRow();
   var lastcol = sheet.getLastColumn();
@@ -91,8 +92,6 @@ function statsModal(){
 }
 
 
-
-
 /*
  * @param(string) sheetName is the name of the sheet as a string
  * this is called from js.html and callback goes to js.html
@@ -106,7 +105,8 @@ function getSheetObj2headers(sheetName) {
 }
 
 function getSheetObj(sheetName) {
-  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.openById('1UngJuhGa1Pew9HdMp5vsoS45lUFXxNwmoYq8sT1FckE');
+ 
   var sheet = ss.getSheetByName(sheetName).getDataRange().getDisplayValues();
   return objectSheet(sheet);
 }

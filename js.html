@@ -104,9 +104,7 @@ for (i = 0; i < acc.length; i++) {
 // Get the modal 
 var modal = document.getElementById("myModal");
 
-// Get the link that opens the modal
-//var btn = document.getElementById("Nathan");
-//console.log(btn);
+
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
@@ -131,16 +129,18 @@ var loading = function (elemId) {
 
 // when the target is clicked go to sheets and then display when it comes back
 function natemodal(name) {
-loading('one');
+  loading('one');
   console.log(name);
   google.script.run.withSuccessHandler(displayDataHome).getSheetObj2headers(name);
   modal.style.display = "block";
 }
-// X = close the modal
-//span.onclick = function() {
-//  modal.style.display = "none";
-//}
 
+ function launchmodal(message) {
+   var e = document.getElementById('one');
+   e.innerHTML = message;
+
+   modal.style.display = "block";
+}
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {

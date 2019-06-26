@@ -1,4 +1,4 @@
-var   ss                = SpreadsheetApp.getActiveSpreadsheet();
+var   ss                = SpreadsheetApp.openById('1UngJuhGa1Pew9HdMp5vsoS45lUFXxNwmoYq8sT1FckE');
 var   allSheets         = ss.getSheets();
 var   snaps             = getSheetObj('Snaps');
 var   allEmployees      = getSheetObj('Roster');
