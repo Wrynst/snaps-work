@@ -1,346 +1,644 @@
 <script>
-var gameRunning = false;
+  var gameRunning = false;
 
+  // ------------------------------------------------FIGHT CONTROLLER---------------------><-------------------------FIGHT CONTROLLER --------------------------------------
+  var fightController = (function () {
 
-// --------FIGHT CONTROLLER----------------------------------------------FIGHT CONTROLLER -----------
-var fightController = (function() {
-  
-  var Attack = function(attackingChar, blockingChar, moveType, val){
-    this.attackingChar = attackingChar;
-    this.blockingChar  = blockingChar;
-    this.moveType     = moveType;
-    this.val          = val;
-  };
-  var Special = function(attackingChar, blockingChar, moveType, val){
-    this.attackingChar = attackingChar;
-    this.blockingChar  = blockingChar;
-    this.moveType     = moveType;
-    this.val          = val;
-  };
-  var Heal = function(attackingChar, blockingChar, moveType, val){
-    this.attackingChar = attackingChar;
-    this.blockingChar  = blockingChar;
-    this.moveType     = moveType;
-    this.val          = val;
-  };
+    // Object Constructors
+    var Attack = function (attackingChar, blockingChar, moveType, val) {
+      this.attackingChar = attackingChar;
+      this.blockingChar = blockingChar;
+      this.moveType = moveType;
+      this.val = val;
+    };
 
-  var data = {
-    name: {
-      hero: "",
-      boss: "Dwarf Deer"
-    }, 
-    
-    email: {
-      hero: "",
-      boss: "shortybigrack@cleanendings.com"
-    
-    },
+    var Special = function (attackingChar, blockingChar, moveType, val) {
+      this.attackingChar = attackingChar;
+      this.blockingChar = blockingChar;
+      this.moveType = moveType;
+      this.val = val;
+    };
+
+    var Heal = function (attackingChar, blockingChar, moveType, val) {
+      this.attackingChar = attackingChar;
+      this.blockingChar = blockingChar;
+      this.moveType = moveType;
+      this.val = val;
+    };
+    var Fail = function (attackingChar, blockingChar, moveType, val) {
+      this.attackingChar = attackingChar;
+      this.blockingChar = blockingChar;
+      this.moveType = moveType;
+      this.val = val;
+    };
+
+    var data = {
+      name: {
+        hero: "",
+        boss: "Dwarf Deer"
+      },
+
+      email: {
+        hero: "",
+        boss: "shortybigrack@cleanendings.com"
+      },
+      round: 0,
+      
+      // To keep from spamming attacks
+      turn: "hero",
+
+      // Text Log to display
+      battleLog: [],
+
+      // number of heals available
+      heal: {
+        hero: 0,
+        boss: 0
+      },
+
+      // Hit points left & how many were originally there
+      hp: {
+        hero: {
+          max: 10,
+          cur: 10
+        },
+        boss: {
+          max: 10,
+          cur: 10
+        }
+      },
+
+      // number of special attacks available
+      special: {
+        hero: 0,
+        boss: 0
+      },
+      
+      // Boolean for winning Each char only gets one shot at it so this will also be the flag to allow access to battle
+      winner: {
+        hero: false,
+        boss: false
+      }
+    };
+
+    return {
+      setPlayerData: function (playerData) {
+        console.log(playerData);
+        // add Stats earned from snaps
+        data.heal.hero    = (1 + playerData.solo);
+        data.special.hero = (1 + playerData.team);
+        data.hp.hero.max  = (10 + playerData.initiative);
         
-    battleLog: [],
-    
-    // number of heals available
-    heal: {   
-      hero: 0,
-      boss: 0
-    },
-    
-    // Hit points left
-    hp: {
-      hero: 10,
-      boss: 10
-    },
-    
-    // number of special attacks available
-    special: {
-      hero: 0,
-      boss: 0
-    },
-    
-    // Boolean for winning
-    winner: {
-      hero: false,
-      boss: false
-    }
-  };
-  
-  return {
-    getPlayerData: function (playerData){
-     // var obj = { name: data.name, email: data.email};
-     // console.log(obj);
-      setTimeout(function() {
-        data.name.hero  = playerData.name;
+        // 
+        data.name.hero = playerData.name;
         data.email.hero = playerData.email;
-        data.heal.hero = 1;  ///---------------------------------------------link to sheet!!------------------------------------------------------------------------------------
-        data.special.hero = 1; ///---------------------------------------------link to sheet!!------------------------------------------------------------------------------------
-        }, 500);
-      return playerData;
-    },
-    
-    getRandomArbitrary: function (min, max) {
-      return Math.floor(Math.random() * (max - min) + min);
-    },
-    
-    checkIfNoMoveLeft: function (attackingChar, blockingChar, moveType, val) {
-      if(data[moveType][attackingChar] <= 0 ){
+        data.round = playerData.round;
+        
+        // Set the current HP to  the Max
+        data.hp.hero.cur = data.hp.hero.max;
+ startFight.classList.toggle("w3-hide");
+        return playerData;
+      },
+
+
+      getRandomArbitrary: function (min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+      },
+
+      checkIfOutOfMoves: function (attackingChar, blockingChar, moveType, val) {
+        if (data[moveType][attackingChar] <= 0) {
           return true;
-        }else{
+        } else {
           return false;
         }
-    
-    },
+      },
 
-    
-    addMove: function (attackingChar, blockingChar, moveType, val) {
-      var newMove, error;
-      
-      var adjustDataValues = function(blockingChar,moveType, val){
-        data.hp[blockingChar] -= val;
-        data[moveType][blockingChar] - 1;
-      
-      };
-      
-      Attack.prototype.damage = function () {
-        return data.hp[blockingChar] -= val;
-        };
-        
-      Special.prototype.bigHit = function () { //--------write this out to subtract the amount of special attacks left in the pool
-        if(data[moveType][attackingChar] <= 0 ){
-          return val = 0;
+      checkWinStatus: function (attackingChar, blockingChar, moveType, val) {
+        if ((data.hp[blockingChar].cur - val) <= 0) {
+          data.winner[attackingChar] = true;
+          gameRunning = false;
+          console.log(data.winner);
+
+          return true;
         } else {
-          return data.hp[blockingChar] -= val;
+          return false;
         }
-      };
-        
-      Heal.prototype.healSpell = function () {
-        if(data[moveType][attackingChar] <= 0 ){
-          return val = 0;
+      },
+
+      adjustDataValues: function (obj) {
+        var currHP, usedMove;
+        if (obj.moveType === 'heal') {
+          currHP = (data.hp[obj.attackingChar].cur += obj.val);
         } else {
-          return data.hp[blockingChar] += val;
+          currHP = (data.hp[obj.blockingChar].cur -= obj.val);
         }
+
+        if (obj.moveType === 'special' || obj.moveType === 'heal') {
+          var usedMove = (data[obj.moveType][obj.attackingChar] -= 1);
+        }
+
+        if (obj.attackingChar === 'boss') {
+          data.turn = 'hero';
+        } else {
+          data.turn = 'boss';
+        }
+
+        return {
+          'usedMove': usedMove,
+          'currentHealth': currHP,
+          'whosTurn': data.turn       
+        }
+      },
+
+      addMove: function (attackingChar, blockingChar, moveType, val) {
+        var newMove, error;
+
+
+        if (moveType === 'attack') {
+          newMove = new Attack(attackingChar, blockingChar, moveType, val);
+          // newMove.damage();
+
+        } else if (moveType === 'special') {
+          newMove = new Special(attackingChar, blockingChar, moveType, val);
+          // newMove.bigHit();
+
+        } else if (moveType === 'heal') {
+          newMove = new Heal(attackingChar, blockingChar, moveType, val);
+          // newMove.healSpell();
+        } else {
+          newMove = new Fail(attackingChar, blockingChar, moveType, val);
+        }
+        // Push move into battle log
+        data.battleLog.push(newMove);
+
+        //return new element
+        return newMove;
+      },
+
+      getHeals: function () {
+        return data.heal;
+      },
+
+      getSpecials: function () {
+        return data.special;
+      },
+
+      getNames: function () {
+        return data.name;
+      },
+
+      getHealth: function () {
+        return data.hp;
+      },
+
+      testing: function () {
+        console.log(data);
+      }
+    };
+
+  })();
+/*------------------------------------------------------------------------
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                        */
+
+  // --------UI CONTROLLER----------------------------------------------UI CONTROLLER -----------
+  var UIController = (function () {
+
+    // Object of DOM Strings to keep things more dynamic and have central area to change things if need be.
+    var DOMstrings = {
+      playerAttack: '#nAttack',
+      playerSpecial: '#nSpecial',
+      playerHeal: '#nHeal',
+      playerStart: '#startFight',
+      fightUiButtons: '#ui-btns',
+      battleTextCont: '.battle-text',
+      playerHealthBar: '#player-hp',
+      enemyHealthBar: '#enemy-hp',
+      displayPlayer: '#playerNamed',
+      displayEnemy: '#enemyNamed',
+      displayHealsLeft: '#healup',
+      displaySpecLeft: '#specit'
+    };
+
+
+    var startFight = document.querySelector(DOMstrings.playerStart);
+    var uiBtns = document.querySelector(DOMstrings.fightUiButtons);
+    var healsNum = document.querySelector(DOMstrings.displayHealsLeft);
+    var specialsNum = document.querySelector(DOMstrings.displaySpecLeft);
+
+    return {
+
+      // Add player Avatar and Name
+      displayPlayerData: function (nameEmail) {
+        // I was getting player as undefined because I think the game loads faster than the data from sheets. Set timeout for half a second seemed to solved the problem at first but ran into issues.  I had the start button appear only after the content loaded
+        setTimeout(function () {
+
+          var enemyName = "Dwarf Deer";
+          var enemyPicURL = "https://arnold.systems/img/d-deer.jpg";
+          var enemyIconURL = "https://arnold.systems/img/gunxfishingrod.svg";
+
+          var enemyAvatar = document.querySelector(DOMstrings.displayEnemy);
+
+          enemyAvatar.innerHTML = '<div class="w3-container"><img src=' + enemyPicURL +
+            ' class="cat-stats title-fight" style="background-image: radial-gradient(circle, white, rgba(137,174,231,1), rgba(0,0,0,0)); position:relative;"></div><div class="flexin"><div class="ribbon"><div class="boss-rib ribbon-stitches-top"></div><div class="ribbon-content"><h1><b>' +
+            nameEmail.boss +
+            ' <span class="fa-lg"><i class="fas fa-rectangle-wide" data-fa-transform="down-10" data-fa-mask="fas fa-deer"></i></span></b></h1></div><div class="ribbon-stitches-bottom"></div></div>';
+
+
+
+          var playerAvatar = document.querySelector(DOMstrings.displayPlayer);
+
+          playerAvatar.innerHTML = '<div><img src="https://robohash.org/' + nameEmail
+            .hero +
+            '.png?set=set4&size=100x100" class="cat-stats title-fight" style="background-image: radial-gradient(circle, white, rgba(137,174,231,1), rgba(0,0,0,0)); position:relative;"></div><div class="flexin"><div class="hero-rib ribbon"><div class="ribbon-stitches-top"></div><div class="ribbon-content"><h1><b>' +
+            nameEmail.hero +
+            ' <i class="fas fa-cat"></i></span></b></h1></div><div class="ribbon-stitches-bottom"></div></div>';
+
+
+
+          return nameEmail;
+        }, 0);
+      },
+
+      // -- Hides and reveals buttons after start game
+      showHideUI: function () {
+        startFight.classList.toggle("w3-hide");
+        uiBtns.classList.toggle("w3-hide");
+      },
+
+
+      // --  Adds a list item to the battle log
+      addListItem: function (obj, names, moveType) {
+        var html, newHtml, element;
+
+
+        // -- Create HTML String with Placeholder Text
+        if (moveType === 'attack' && obj.attackingChar === 'hero') {
+          html =
+            '<li class="battle-words bt-a animated bounceIn"><span class="attack-attacker-text">%attackingChar%</span> cleans <span class="attack-blocker-text">%blockingChar%</span>\'s microwave for <span class="attack-value-text">%val%!</span></li>';
+       
+        } else if (moveType === 'attack' && obj.attackingChar === 'boss') {
+          html =
+            '<li class="battle-words bt-a animated bounceIn"><span class="attack-attacker-text">%attackingChar%</span> kicks up some mud while stomping around creating more work for <span class="attack-blocker-text">%blockingChar%</span>.  <span class="attack-value-text">%val%</span> points of filth were just added!</li>';
+      
+        } else if (moveType === 'special') {
+          html =
+            '<li class="battle-words bt-s animated flipInY">Using a superior knowledge of efficient cleaning,<br> %attackingChar% yells to their team "We have 20 minutes left in here! We can do it in 18!<br>The confidence boost wipes away %val% points of %blockingChar%\'s filth!</li>';
+       
+        } else if (moveType === 'heal') {
+          html =
+            '<li class="battle-words bt-h animated jackInTheBox">Oh no the vaccuum bag is full! <br> %attackingChar% smiles as they pull a back up out of the dusting tray heals for %val%!</li>';
+       
+        } else if (moveType === 'noSpecial') {
+          html =
+            '<li class="battle-words bt-s animated flipIn">%attackingChar% grits their teeth and digs deep for one of the 15 Steps to Efficiency. "I NEED A NEW SPONGE!!" Growls %attackingChar% from the floor clutching the pieces of what is left of the sponge. <br> If only %attackingChar% had kept their tools in impecible shape. %blockingChar% laughs using the opportunity to paint the mirror with toothpaste!</li>';
+       
+        } else if (moveType === 'noHeal') {
+          html =
+            '<li class="battle-words bt-h animated jackInTheBox">%attackingChar% smiles as a healspell heals for %val%!</li>';
+        }
+
+        // Replace the Placeholder text with some actual data -- using regex to replace multiple instances of the %variables% in the same pass
+        var regexAttacking = /\%attackingChar\%/g;
+        var regexBlocking = /\%blockingChar\%/g;
+        var regexVal = /\%val\%/g;
+        // If it is hero / boss attacking -> style the name
+        if (obj.attackingChar === 'hero') {
+
+          newHtml = html.replace(regexAttacking, '<span id="heroAttackingLog">' + names[obj.attackingChar] +
+            '</span>');
+        } else if (obj.attackingChar === 'boss') {
+          newHtml = html.replace(regexAttacking, '<span id="bossAttackingLog">' + names[obj.attackingChar] +
+            '</span>');
+        }
+        // If it is hero / boss blocking -> style the name
+        if (obj.blockingChar === 'hero') {
+          newHtml = newHtml.replace(regexBlocking, '<span id="heroBlockingLog">' + names[obj.blockingChar] +
+            '</span>');
+        } else if (obj.blockingChar === 'boss') {
+          newHtml = newHtml.replace(regexBlocking, '<span id="bossBlockingLog">' + names[obj.blockingChar] +
+            '</span>');
+        }
+        // style 
+        newHtml = newHtml.replace(regexVal, '<span id="val-log">' + obj.val + '</span>');
+        //newHtml = newHtml.replace(regexBlocking, '<span id="blockingLog">'+names[obj.blockingChar]+'</span>');
+
+        // Insert HTML into the DOM
+        element = DOMstrings.battleTextCont;
+        document.querySelector(element).insertAdjacentHTML('afterbegin', newHtml);
+
+      },
+
+
+      // Adjust the Health bar to reflect the current Health as well as any counters for abiliities
+      showScoreUI: function (obj, healthBarNumbers, healsOrSpecialsLeft) {
+        var element, elementHpSp;
+
+        // If hero is blocking select their hp bar
+        if (obj.blockingChar === 'hero') {
+          element = '#player-hp';
+
+          // unless it is the boss blocking
+        } else if (obj.blockingChar === 'boss') {
+          element = '#enemy-hp';
+
+        }
+        // var element2 = '.' + element;
+        // Get the HP bar 
+        var hp = document.querySelector(element);
+
+        // subtract from the pool of heals and specials
+        if (obj.moveType === 'special') {
+          specialsNum.innerHTML = healsOrSpecialsLeft;
+          animateCSS(element , 'tada');
+
+        } else if (obj.moveType === 'heal') {     
+          healsNum.innerHTML = healsOrSpecialsLeft;
+          animateCSS(element , 'bounce');    
+
+        } else {
+          animateCSS(element , 'jello');
+        }
+        var blockerCurrentHp = healthBarNumbers[obj.blockingChar].cur;
+        var blockerMaxHp = healthBarNumbers[obj.blockingChar].max;
+        
+        // Text inside of the Bar is the total current HP / Starting Max HP
+        hp.innerHTML = blockerCurrentHp + '/' + blockerMaxHp;
+        
+        // The actual number to show the percentage of HP graphically with HP Bar
+        hp.style.width = (blockerCurrentHp / blockerMaxHp ) * 100 + "%";
+          
+
+      },
+
+      updateUIforStart: function (healthBarNumbers) {
+        var herohp, bosshp, healsLeft, specsLeft;
+        console.log(healthBarNumbers);
+        herohp    = document.getElementById( 'player-hp' );
+        healsLeft = document.getElementById( 'healup' );
+        specsLeft = document.getElementById( 'specit' );
+        bosshp    = document.getElementById( 'enemy-hp' );
+
+
+
+        herohp.style.width = '100%';
+        bosshp.style.width = '100%';
+
+       herohp.innerHTML = healthBarNumbers.hp.hero.max + "/" + healthBarNumbers.hp.hero.max;
+       bosshp.innerHTML = healthBarNumbers.hp.boss.max + "/" + healthBarNumbers.hp.boss.max;
+
+        //Default starting values
+        specsLeft.innerHTML = healthBarNumbers.specials.hero;
+        healsLeft.innerHTML = healthBarNumbers.heals.hero;
+      },
+        
+      updateUIforEnd: function (attacking, blocking, moveType ,dmgValue, nameObj) {
+        var battleTextArea;
+        console.log(nameObj);
+        battleTextArea = document.getElementById('announcing');
+        battleTextArea.style.display = 'block';
+        animateCSS('#announcing', 'rollIn');
+        if(attacking === 'hero'){
+          battleTextArea.innerHTML = nameObj[attacking] + ' is Victorious! You beat back the Filth!'
+
+        }else{
+          battleTextArea.innerHTML = nameObj[attacking] + ' is Too Filthy! You can not finish the clean.' 
+        }
+      },
+      getDOMStrings: function () {
+        return DOMstrings;
+      }
+
+    };
+
+  })();
+/*------------------------------------------------------------------------
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                         |
+                                                                        */
+  // GLOBAL APP CONTROLLER ---------3---------------3-----***********************3******************-----3--------- GLOBAL APP CONTROLLER ---------------3-----------GLOBAL APP CONTROLLER ----3
+  var controller = (function (fightCtrl, UICtrl) {
+
+    var newItem, updatedNumbers;
+    // variables to hold my strings needed in the controller
+    var heroChar = 'hero';
+    var bossChar = 'boss';
+    var attackMove = 'attack';
+    var specialMove = 'special';
+    var healMove = 'heal';
+
+    var setupEventListeners = function () {
+      document.querySelector(DOMstr.playerStart).addEventListener('click', startClean);
+      document.querySelector(DOMstr.playerAttack).addEventListener('click', cleanAttack);
+      document.querySelector(DOMstr.playerSpecial).addEventListener('click', specialClean);
+      document.querySelector(DOMstr.playerHeal).addEventListener('click', fillBottles);
+    }
+    // Boss Moves put into a seperate function off to the  side.  Right now it waits 2 seconds before attacking.  Need to block the player from spamming attack while this time is going
+
+    var bossMove = function () {
+      // Get a number between 2 and 4-----------\
+      var dmg = fightCtrl.getRandomArbitrary(2, 4);
+      if (fightCtrl.checkWinStatus(bossChar, heroChar, attackMove, dmg) === true) {
+        // Display Win
+        UICtrl.updateUIforEnd(bossChar, heroChar, attackMove, dmg, names);
+        UICtrl.showHideUI();
+      } else {
+
+        // wait for suspense! 
+        setTimeout(function () {
+          // Add a new move object
+          newItem = fightCtrl.addMove(bossChar, heroChar, attackMove, dmg);
+
+          // Adjust the values in the data stucture to reflect the current updated values (after Battle words)
+          updatedNumbers = fightCtrl.adjustDataValues(newItem);
+
+          // Add a New entery into the battle text box to show the attack
+          UICtrl.addListItem(newItem, names, attackMove);
+
+          // update the Health bar and any abilities left
+          UICtrl.showScoreUI(newItem, hpCurMax);
+
+          fightCtrl.testing();
+        }, 2000);
+      }
+    }
+
+    // Get DOMstring Variables from UICTRL
+    var DOMstr = UICtrl.getDOMStrings();
+      var names = fightCtrl.getNames();
+
+      // Get the Healthpoints of the Cur and the Max(starting)
+      var hpCurMax = fightCtrl.getHealth();
+
+       // Get Heals left
+      var healsLft = fightCtrl.getHeals();
+
+      // Get Specials Left
+      var specialsLft = fightCtrl.getSpecials();
+
+    // -----------------------!!!!!!!!!!!!!!!!!!!!---STARTS HERE----!!!!!!!!!!!!!!!!!
+    var startClean = function () {
+
+      
+      var updateStartingValues = {
+        names: names,
+        hp: hpCurMax,
+        heals: healsLft,
+        specials: specialsLft
       };
-      
-      if( moveType === 'attack') {
-        newMove = new Attack(attackingChar, blockingChar, moveType, val);
-        newMove.damage();
-        
-      } else if( moveType === 'special') {
-        newMove = new Special(attackingChar, blockingChar, moveType, val);
-        newMove.bigHit();
-        
-      } else if( moveType === 'heal') {
-        newMove = new Heal(attackingChar, blockingChar, moveType, val);
-        newMove.healSpell();
-      }
-      // Push move into battle log
-      data.battleLog.push(newMove);
-      
-      //return new element
-      return newMove;
-    },   
-    getNames: function(){
-      return data.name;
-    },
-    
-    testing: function() {
-      console.log(data);
+      UICtrl.updateUIforStart(updateStartingValues);
+      // hide the startFight Button
+      UICtrl.showHideUI();
+      // Display the fight console
+
+      // get the player stats
+      UICtrl.displayPlayerData(names);
+     
+      // start the game
     }
-  };
 
-})();
+    //---------------------------REGULAR -=-----ATTACK-----------=====================================================---------REGULAR BASIC ATTACK----------------------------------------
+    var cleanAttack = function () {
 
-// --------UI CONTROLLER----------------------------------------------UI CONTROLLER -----------
-var UIController = (function() {
-  
-  var DOMstrings = {
-                     playerAttack   : '#nAttack',
-                     playerSpecial  : '#nSpecial',
-                     playerHeal     : '#nHeal',
-                     playerStart    : '#startFight',
-                     battleTextCont : '.battle-text',
-                     playerHealthBar: '.player-hp',
-                     enemyHealthBar : '.enemy-hp'
-                   };
-  
-  
-  var startFight = document.getElementById( "startFight" );
-  var uiBtns = document.getElementById( "ui-btns" );
-  
-  return {
+      // damage of the attack 
+      var attackDmg = fightCtrl.getRandomArbitrary(1, 3);
 
-    // Add player Avatar and Name
-    setPlayerData: function ( nameEmail ) {
-      setTimeout ( function ( ) {
-      
-      var enemyName = "Dwarf Deer";
-      var enemyPicURL = "https://arnold.systems/img/d-deer.jpg";
-      var enemyIconURL = "https://arnold.systems/img/gunxfishingrod.svg";
-      var enemyAvatar = document.getElementById( 'enemyNamed' );
-      enemyAvatar.innerHTML = '<div class="w3-container"><img src='+ enemyPicURL +' class="cat-stats title-fight" style="background-image: radial-gradient(circle, white, rgba(137,174,231,1),rgba(0,0,0,0)); position:relative;"><span class="tag w3-tag w3-xlarge" style=" background: transparent ; color:transparent; padding: 0px; border: 0; transform: translate(-100%, 120%) rotate(-4deg); font-size: 26px; text-shadow: 1px 0px 1px #fff, -1px 0px 1px #000, 0px 1px 1px #fff, 0px -1px 1px #000;">' + nameEmail.boss + '<img src=' + enemyIconURL + ' width="25px"></span></div></i>';
-   
-    
-      
-      var playerAvatar = document.getElementById( 'playerNamed' );
-      playerAvatar.innerHTML = '<div class="w3-container"><img src="https://robohash.org/' + nameEmail.hero + '.png?set=set4&size=100x100" class="cat-stats title-fight" style="background-image: radial-gradient(circle, white, rgba(137,174,231,1),rgba(0,0,0,0)); position:relative;"><span class="tag w3-tag w3-xlarge" style="background: transparent; color: transparent; padding:0px; border: 0; font-size: 26px; transform: translate(-90%, 125%) rotate(3deg); text-shadow: 1px 0px 1px #fff, -1px 0px 1px #000, 0px 1px 1px #000, 0px -1px 1px #fff;">' + nameEmail.hero + ' </i><span style="color: white"><i class="fas fa-paw-claws"></i></span></div>';  
-      
-      return nameEmail;
-      }, 500);
-    },
-    
-    // -- Hides and reveals buttons after startgame
-    showHideUI: function() {
-      startFight.classList.toggle("w3-hide");
-      uiBtns.classList.toggle("w3-hide");
-    },
-    
-    // --  Adds a list item to the battle log
-    addListItem: function( obj, names, moveType){
-      var html, newHtml, element;
-      
-      // -- Create HTML String with Placeholder Text
-      if( moveType === 'attack') {
-        html = '<li class="battle-words bt-a animated bounceIn"><span class="attack-attacker-text">%attackingChar%</span> cleans <span class="attack-blocker-text">%blockingChar%</span> for <span class="attack-value-text">%val%!</span></li>';
-      }
-        else if ( moveType === 'special') {
-        html = '<li class="battle-words bt-s animated flipInY">%attackingChar% winds up for a big attack unleashing %val% of damage on %blockingChar%!</li>';
-      }
-        else if ( moveType === 'heal') {
-        html = '<li class="battle-words bt-h animated jackInTheBox">%attackingChar% smiles as a healspell heals for %val%!</li>';
-      }
-      
-      
-      // Replace the Placeholder text with some actual data
-      newHtml = html.replace('%attackingChar%', names[obj.attackingChar]);
-      newHtml = newHtml.replace('%val%', obj.val);
-      newHtml = newHtml.replace('%blockingChar%', names[obj.blockingChar]);
-      
-      // Insert HTML into the DOM
-      element = DOMstrings.battleTextCont;
-      document.querySelector(element).insertAdjacentHTML('afterbegin', newHtml);
-    },
-    getDOMStrings: function() {
-      return DOMstrings;
-    }
- 
-  }
-// some code
-
-
-
-})();
-
-// GLOBAL APP CONTROLLER ------------------------------------------- GLOBAL APP CONTROLLER --------------------------GLOBAL APP CONTROLLER 
-var controller = ( function( fightCtrl, UICtrl ) {
-  
-  var newItem;
-  
-  var heroChar     = 'hero';
-  var bossChar     = 'boss';
-  var attackMove   = 'attack';
-  var specialMove  = 'special';
-  var healMove     = 'heal';
-  
-  var setupEventListeners = function( ) {
-    document.querySelector( DOMstr.playerStart   ).addEventListener( 'click' ,   startClean   ); 
-    document.querySelector( DOMstr.playerAttack  ).addEventListener( 'click' ,   cleanAttack  );
-    document.querySelector( DOMstr.playerSpecial ).addEventListener( 'click' ,   specialClean );
-    document.querySelector( DOMstr.playerHeal    ).addEventListener( 'click' ,   fillBottles  );
-  }
-  
-  var bossMove = function ( ) {
-    var dmg =  fightCtrl.getRandomArbitrary( 2 , 4 );
-    // ---check win status
-    setTimeout ( function ( ) {
-      newItem = fightCtrl.addMove( 'boss' , 'hero' , 'attack' , dmg );
-      UICtrl.addListItem( newItem , names , 'attack' );    
-      fightCtrl.testing( );
-    }, 2000 );
-  }
-  
-
-    
-  var DOMstr = UICtrl.getDOMStrings( );   
-  
-  var names = fightCtrl.getNames( );
-    
-  var startClean = function( ) {
-    
-    // hide the startFight Button
-    UICtrl.showHideUI( );
-    // Display the fight console
-  
-    // get the player stats
-    UICtrl.setPlayerData(names);
-
-    // start the game
-    
-    
-    }
-  var cleanAttack = function() { 
-    var attackDmg =  fightCtrl.getRandomArbitrary( 2 , 4 );
-    newItem = fightCtrl.addMove( heroChar , bossChar , attackMove , attackDmg );
-    UICtrl.addListItem( newItem , names , attackMove );
-   
-    bossMove();
-   
-
-  }
-  
-  var specialClean = function( ) { 
-  
-    // Change the Damage Range on attacks here ------------------------------ Change the Damage Range on attacks here --!!
-    var specialDmg =  fightCtrl.getRandomArbitrary( 2 , 4 );
-    
-    if( fightCtrl.checkIfNoMoveLeft( heroChar , bossChar , specialMove , specialDmg ) ) {
-      launchmodal("You start to use one of the 15 steps that you learned but can't seem to remember..  how did they say Use Both Hands!" );
-   
-    } else {
-    newItem = fightCtrl.addMove( heroChar , bossChar , specialMove , specialDmg );
-    }
-    UICtrl.addListItem( newItem , names , specialMove );
-   
-    bossMove();
-    
-  }
-  
-  // Heal Function Started by hitting the "heal" button
-  var fillBottles = function( ) { 
-  
-    // Change the Damage Range on attacks here ------Damage Range includes the high and low number------------------------ Change the Damage Range on attacks here -------!!
-    var heal =  fightCtrl.getRandomArbitrary( 2 , 4 );
-    if( fightCtrl.checkIfNoMoveLeft( heroChar , heroChar , healMove , heal ) ) {
-      launchmodal( names[heroChar] + "stops what they are doing and starts to stock their tray before they get back to the office! The clean is still going!" );
-   
-    } else {
-    // add new item to the data 
-    newItem = fightCtrl.addMove( heroChar , heroChar , healMove , heal );
-   }
-    // add item to the UI Battle Text Box
-    UICtrl.addListItem( newItem , names , healMove );
-    
-    // Boss' Turn Same Attack everytime
-    bossMove();
-
-  }
-  
- 
-   return {
-     init: function(){
-       google.script.run.withSuccessHandler(fightCtrl.getPlayerData).employeeUser('object');
-       gameRunning = true;
-       setupEventListeners();
-       console.log("Is Game running? "+ gameRunning);
-       //console.log(name);
-    }
-  }
  
 
-  
+        // Add a new move object = Attack when the button attack is pressed
+        newItem = fightCtrl.addMove(heroChar, bossChar, attackMove, attackDmg);
 
-})(fightController, UIController);
+        // Adjust the values in the data stucture to reflect the current updated values (after Battle words)
+        updatedNumbers = fightCtrl.adjustDataValues(newItem);
+
+        // Add a New entery into the battle text box to show the attack
+      UICtrl.addListItem(newItem, names, attackMove);
+
+        // update the Health bar and any abilities left
+      UICtrl.showScoreUI(newItem, hpCurMax);
+      
+      if (fightCtrl.checkWinStatus(heroChar, bossChar, attackMove, attackDmg) === true) {
+        //display win in middle
+        UICtrl.updateUIforEnd(heroChar, bossChar, attackMove, attackDmg, names);
+        UICtrl.showHideUI();
+      } else {
+        // have the boss take a turn
+        bossMove();
+      }
+    }
 
 
-controller.init();
+    //---------------------------Special Move-------------------Special Move------------------------===============================----------------Special Move
+    var specialClean = function () {
 
+      // Change the Damage Range on attacks here ------------------------------ Change the Damage Range on attacks here --!!
+      var specialDmg = fightCtrl.getRandomArbitrary(2, 5);
+
+      if (fightCtrl.checkWinStatus(heroChar, bossChar, specialMove, specialDmg) === true) {
+        //display win in middle
+        UICtrl.updateUIforEnd(heroChar, bossChar, specialMove, specialDmg, names);
+        UICtrl.showHideUI();
+      } else {
+
+        // Check that the moves for abilities are depleted
+        if (fightCtrl.checkIfOutOfMoves(heroChar, bossChar, specialMove, specialDmg)) {
+          //        launchmodal(
+          //          "You start to use one of the 15 steps that you learned but can't seem to remember.. Use Both hands... But...  How?!"
+          //        );
+
+          specialMove = 'noSpecial';
+          specialDmg = 0;
+        }
+
+        newItem = fightCtrl.addMove(heroChar, bossChar, specialMove, specialDmg);
+
+        // Adjust the values in the data stucture to reflect the current updated values (after Battle words)
+        updatedNumbers = fightCtrl.adjustDataValues(newItem);
+
+        // Add a New entery into the battle text box to show the attack
+        UICtrl.addListItem(newItem, names, specialMove);
+
+        // update the Health bar and any abilities left
+        UICtrl.showScoreUI(newItem, hpCurMax, specialsLft.hero);
+
+        bossMove();
+      }
+    }
+
+    // Heal Function Started by hitting the "heal" button----------------------------------------------HEAL+++++++++
+    var fillBottles = function () {
+
+      // Change the Damage Range on attacks here ------Damage Range includes the high and low number------------------------ Change the Damage Range on attacks here -------!!
+      var healAmount = fightCtrl.getRandomArbitrary(2, 5);
+      if (fightCtrl.checkIfOutOfMoves(heroChar, bossChar, healMove, healAmount)) {
+        // launchmodal(names[heroChar] +
+        //   " stops what they are doing and starts to stock their tray before they get back to the office! The clean is still going!"
+        // );
+
+        fightCtrl.addMove(heroChar, bossChar, 'noHeal', healAmount);
+
+      } else {
+        // add new item to the data 
+        newItem = fightCtrl.addMove(heroChar, heroChar, healMove, healAmount);
+      }
+      // Adjust the values in the data stucture to reflect the current updated values (after Battle words)
+      updatedNumbers = fightCtrl.adjustDataValues(newItem);
+
+      // add item to the UI Battle Text Box
+      UICtrl.addListItem(newItem, names, healMove);
+
+      // update the Health bar and any abilities left
+      UICtrl.showScoreUI(newItem, hpCurMax, updatedNumbers.usedMove);
+
+      // Boss' Turn Same Attack everytime
+      bossMove();
+
+    }
+
+    function getPlayerData (playerData) {
+      var name, email, roundNum, dataPackage;
+ 
+      name = playerData.name;
+      email = playerData.email;
+      roundNum = 1;
+      dataPackage = {
+                     name : name,
+                     email : email,
+                     round : roundNum      
+                     };
+      // Using the NAME that the Init function got --- go get the --------data about their stats-----SENDIT on UP TO SET THE DATA INTO THE STATE OBJECT--------77777777777777777
+      google.script.run.withSuccessHandler(fightCtrl.setPlayerData).getEmpSheet(dataPackage);
+    
+    }
+    return {
+      //Initialize Here.  Put all functions needed to get app going
+      init: function () {
+      // Get Player Name from their email and get DATA from SHEETS --- send it off to 2nd google.script.run that needs it to go pull their stats
+        google.script.run.withSuccessHandler(getPlayerData).employeeUser('object');
+          // google.script.run.withSuccessHandler() 
+          // .getEmpSheet(data)})
+          // .employeeUser('object');
+
+        gameRunning = true;
+        setupEventListeners();
+        console.log("Is Game running? " + gameRunning);
+       
+      }
+    }
+
+  })(fightController, UIController);
+
+
+  controller.init();
 </script>
- 
-

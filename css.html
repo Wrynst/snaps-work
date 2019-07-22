@@ -1,640 +1,672 @@
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.1/animate.css"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.1/animate.css">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
-@import url('https://fonts.googleapis.com/css?family=Cabin+Sketch|Fredericka+the+Great|Stylish|Sue+Ellen+Francisco|VT323&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Cabin+Sketch|Fredericka+the+Great|Stylish|Sue+Ellen+Francisco|VT323&display=swap');
 
 
 
-.w3-vt323{
-font-family: 'VT323', monospace;
-}
-.w3-ftg{
-font-family: 'Fredericka the Great', cursive;
-}
-.w3-cabin{
-font-family: 'Cabin Sketch', cursive;
-}
-.w3-sue{
-font-family: 'Sue Ellen Francisco', cursive;
-}
+  .w3-vt323 {
+    font-family: 'VT323', monospace;
+  }
 
-html * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-transition: all 0.45s ease;
-  transition: all 0.45s ease;    
-  margin: 0;
-  font-family: 'Sue Ellen Francisco', cursive;
-  font-size: 24px;
-}
+  .w3-ftg {
+    font-family: 'Fredericka the Great', cursive;
+  }
 
-body {
+  .w3-cabin {
+    font-family: 'Cabin Sketch', cursive;
+  }
 
-  color: rgba(0,0,0,0.87); 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: center;
-  min-height: 100vh;
-  min-width: 100vw;
-  font-family: 'Sue Ellen Francisco', cursive;
-  background-color:  transparent;
-  background-image: 
-    linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1)),   
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 200 200'%3E%3Cdefs%3E %3ClinearGradient id='a' gradientUnits='objectBoundingBox' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23e6e6e6'/%3E%3Cstop offset='0.5' stop-color='%23ffffff'/%3E%3Cstop offset='1' stop-color='%23ffffff'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='objectBoundingBox' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0.5'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon fill='url(%23a)' points='100 100 0 200 100 300 200 200'/%3E%3Cpolygon fill='url(%23b)' points='-100 100 0 230 100 100'/%3E%3Cpolygon fill='url(%23b)' points='100 100 200 230 300 100'/%3E%3Cpolygon fill='url(%23a)' points='0 0 -100 100 0 200 100 100'/%3E%3Cpolygon fill='url(%23a)' points='200 0 100 100 200 200 300 100'/%3E%3Cpolygon fill='url(%23b)' points='0 0 100 130 200 0'/%3E%3Cpolygon fill='url(%23a)' points='100 -100 0 0 100 100 200 0'/%3E%3Cpolygon fill='url(%23b)' points='-100 -100 0 30 100 -100'/%3E%3Cpolygon fill='url(%23b)' points='100 -100 200 30 300 -100'/%3E%3C/svg%3E") ;  background-attachment: fixed;
-  background-size: contain, 50px;
-}
+  .w3-sue {
+    font-family: 'Sue Ellen Francisco', cursive;
+  }
 
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
- 
-  background-color: rgba(200,200,200,0.95);
- 
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-opacity='0.2'%3E%3Crect x='-40' y='40' width='75' height='75'/%3E%3Crect x='-35' y='45' width='65' height='65'/%3E%3Crect x='-30' y='50' width='55' height='55'/%3E%3Crect x='-25' y='55' width='45' height='45'/%3E%3Crect x='-20' y='60' width='35' height='35'/%3E%3Crect x='-15' y='65' width='25' height='25'/%3E%3Crect x='-10' y='70' width='15' height='15'/%3E%3Crect x='-5' y='75' width='5' height='5'/%3E%3Crect width='35' height='35'/%3E%3Crect x='5' y='5' width='25' height='25'/%3E%3Crect x='10' y='10' width='15' height='15'/%3E%3Crect x='15' y='15' width='5' height='5'/%3E%3Crect x='40' width='75' height='75'/%3E%3Crect x='45' y='5' width='65' height='65'/%3E%3Crect x='50' y='10' width='55' height='55'/%3E%3Crect x='55' y='15' width='45' height='45'/%3E%3Crect x='60' y='20' width='35' height='35'/%3E%3Crect x='65' y='25' width='25' height='25'/%3E%3Crect x='70' y='30' width='15' height='15'/%3E%3Crect x='75' y='35' width='5' height='5'/%3E%3Crect x='40' y='80' width='35' height='35'/%3E%3Crect x='45' y='85' width='25' height='25'/%3E%3Crect x='50' y='90' width='15' height='15'/%3E%3Crect x='55' y='95' width='5' height='5'/%3E%3Crect x='120' y='-40' width='75' height='75'/%3E%3Crect x='125' y='-35' width='65' height='65'/%3E%3Crect x='130' y='-30' width='55' height='55'/%3E%3Crect x='135' y='-25' width='45' height='45'/%3E%3Crect x='140' y='-20' width='35' height='35'/%3E%3Crect x='145' y='-15' width='25' height='25'/%3E%3Crect x='150' y='-10' width='15' height='15'/%3E%3Crect x='155' y='-5' width='5' height='5'/%3E%3Crect x='120' y='40' width='35' height='35'/%3E%3Crect x='125' y='45' width='25' height='25'/%3E%3Crect x='130' y='50' width='15' height='15'/%3E%3Crect x='135' y='55' width='5' height='5'/%3E%3Crect y='120' width='75' height='75'/%3E%3Crect x='5' y='125' width='65' height='65'/%3E%3Crect x='10' y='130' width='55' height='55'/%3E%3Crect x='15' y='135' width='45' height='45'/%3E%3Crect x='20' y='140' width='35' height='35'/%3E%3Crect x='25' y='145' width='25' height='25'/%3E%3Crect x='30' y='150' width='15' height='15'/%3E%3Crect x='35' y='155' width='5' height='5'/%3E%3Crect x='200' y='120' width='75' height='75'/%3E%3Crect x='40' y='200' width='75' height='75'/%3E%3Crect x='80' y='80' width='75' height='75'/%3E%3Crect x='85' y='85' width='65' height='65'/%3E%3Crect x='90' y='90' width='55' height='55'/%3E%3Crect x='95' y='95' width='45' height='45'/%3E%3Crect x='100' y='100' width='35' height='35'/%3E%3Crect x='105' y='105' width='25' height='25'/%3E%3Crect x='110' y='110' width='15' height='15'/%3E%3Crect x='115' y='115' width='5' height='5'/%3E%3Crect x='80' y='160' width='35' height='35'/%3E%3Crect x='85' y='165' width='25' height='25'/%3E%3Crect x='90' y='170' width='15' height='15'/%3E%3Crect x='95' y='175' width='5' height='5'/%3E%3Crect x='120' y='160' width='75' height='75'/%3E%3Crect x='125' y='165' width='65' height='65'/%3E%3Crect x='130' y='170' width='55' height='55'/%3E%3Crect x='135' y='175' width='45' height='45'/%3E%3Crect x='140' y='180' width='35' height='35'/%3E%3Crect x='145' y='185' width='25' height='25'/%3E%3Crect x='150' y='190' width='15' height='15'/%3E%3Crect x='155' y='195' width='5' height='5'/%3E%3Crect x='160' y='40' width='75' height='75'/%3E%3Crect x='165' y='45' width='65' height='65'/%3E%3Crect x='170' y='50' width='55' height='55'/%3E%3Crect x='175' y='55' width='45' height='45'/%3E%3Crect x='180' y='60' width='35' height='35'/%3E%3Crect x='185' y='65' width='25' height='25'/%3E%3Crect x='190' y='70' width='15' height='15'/%3E%3Crect x='195' y='75' width='5' height='5'/%3E%3Crect x='160' y='120' width='35' height='35'/%3E%3Crect x='165' y='125' width='25' height='25'/%3E%3Crect x='170' y='130' width='15' height='15'/%3E%3Crect x='175' y='135' width='5' height='5'/%3E%3Crect x='200' y='200' width='35' height='35'/%3E%3Crect x='200' width='35' height='35'/%3E%3Crect y='200' width='35' height='35'/%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-size: contain;
-  font-variant: small-caps;
- 
-  display: flex;
-  justify-content: space-around;
-  height:;
-  align-items: center;
-  z-index: 2;
-  padding:5px
-}
+  html * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all 0.45s ease;
+    transition: all 0.45s ease;
+    margin: 0;
+    font-family: 'Sue Ellen Francisco', cursive;
+    font-size: 18px;
+  }
 
-nav.tabs{
-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.2);
-}
+  body {
 
-nav div.is-active {
-  transform: skewY(10deg);
-  transform-origin: left bottom;
-  
-}
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    font-family: 'Sue Ellen Francisco', cursive;
+    background-color: transparent;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 200 200'%3E%3Cdefs%3E %3ClinearGradient id='a' gradientUnits='objectBoundingBox' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23e6e6e6'/%3E%3Cstop offset='0.5' stop-color='%23ffffff'/%3E%3Cstop offset='1' stop-color='%23ffffff'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='objectBoundingBox' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0.5'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon fill='url(%23a)' points='100 100 0 200 100 300 200 200'/%3E%3Cpolygon fill='url(%23b)' points='-100 100 0 230 100 100'/%3E%3Cpolygon fill='url(%23b)' points='100 100 200 230 300 100'/%3E%3Cpolygon fill='url(%23a)' points='0 0 -100 100 0 200 100 100'/%3E%3Cpolygon fill='url(%23a)' points='200 0 100 100 200 200 300 100'/%3E%3Cpolygon fill='url(%23b)' points='0 0 100 130 200 0'/%3E%3Cpolygon fill='url(%23a)' points='100 -100 0 0 100 100 200 0'/%3E%3Cpolygon fill='url(%23b)' points='-100 -100 0 30 100 -100'/%3E%3Cpolygon fill='url(%23b)' points='100 -100 200 30 300 -100'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: contain, 50px;
+    -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+          z-index: -20;
+  }
 
-p {
-  color: rgba(0,0,0,0.54);
-  font-size: 18px;
-  padding: 16px 16px 8px 16px;
-  cursor: default;
-}
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 
-table {
-  background-color: transparent;
-}
+    background-color: rgba(200, 200, 200, 0.95);
 
-footer {
-  background: #333333;
-  color: #727272;
-  padding: 2rem 4rem;
-  margin-top:auto;
-  z-index: 1;
-  width: 100vw;
-}
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-opacity='0.2'%3E%3Crect x='-40' y='40' width='75' height='75'/%3E%3Crect x='-35' y='45' width='65' height='65'/%3E%3Crect x='-30' y='50' width='55' height='55'/%3E%3Crect x='-25' y='55' width='45' height='45'/%3E%3Crect x='-20' y='60' width='35' height='35'/%3E%3Crect x='-15' y='65' width='25' height='25'/%3E%3Crect x='-10' y='70' width='15' height='15'/%3E%3Crect x='-5' y='75' width='5' height='5'/%3E%3Crect width='35' height='35'/%3E%3Crect x='5' y='5' width='25' height='25'/%3E%3Crect x='10' y='10' width='15' height='15'/%3E%3Crect x='15' y='15' width='5' height='5'/%3E%3Crect x='40' width='75' height='75'/%3E%3Crect x='45' y='5' width='65' height='65'/%3E%3Crect x='50' y='10' width='55' height='55'/%3E%3Crect x='55' y='15' width='45' height='45'/%3E%3Crect x='60' y='20' width='35' height='35'/%3E%3Crect x='65' y='25' width='25' height='25'/%3E%3Crect x='70' y='30' width='15' height='15'/%3E%3Crect x='75' y='35' width='5' height='5'/%3E%3Crect x='40' y='80' width='35' height='35'/%3E%3Crect x='45' y='85' width='25' height='25'/%3E%3Crect x='50' y='90' width='15' height='15'/%3E%3Crect x='55' y='95' width='5' height='5'/%3E%3Crect x='120' y='-40' width='75' height='75'/%3E%3Crect x='125' y='-35' width='65' height='65'/%3E%3Crect x='130' y='-30' width='55' height='55'/%3E%3Crect x='135' y='-25' width='45' height='45'/%3E%3Crect x='140' y='-20' width='35' height='35'/%3E%3Crect x='145' y='-15' width='25' height='25'/%3E%3Crect x='150' y='-10' width='15' height='15'/%3E%3Crect x='155' y='-5' width='5' height='5'/%3E%3Crect x='120' y='40' width='35' height='35'/%3E%3Crect x='125' y='45' width='25' height='25'/%3E%3Crect x='130' y='50' width='15' height='15'/%3E%3Crect x='135' y='55' width='5' height='5'/%3E%3Crect y='120' width='75' height='75'/%3E%3Crect x='5' y='125' width='65' height='65'/%3E%3Crect x='10' y='130' width='55' height='55'/%3E%3Crect x='15' y='135' width='45' height='45'/%3E%3Crect x='20' y='140' width='35' height='35'/%3E%3Crect x='25' y='145' width='25' height='25'/%3E%3Crect x='30' y='150' width='15' height='15'/%3E%3Crect x='35' y='155' width='5' height='5'/%3E%3Crect x='200' y='120' width='75' height='75'/%3E%3Crect x='40' y='200' width='75' height='75'/%3E%3Crect x='80' y='80' width='75' height='75'/%3E%3Crect x='85' y='85' width='65' height='65'/%3E%3Crect x='90' y='90' width='55' height='55'/%3E%3Crect x='95' y='95' width='45' height='45'/%3E%3Crect x='100' y='100' width='35' height='35'/%3E%3Crect x='105' y='105' width='25' height='25'/%3E%3Crect x='110' y='110' width='15' height='15'/%3E%3Crect x='115' y='115' width='5' height='5'/%3E%3Crect x='80' y='160' width='35' height='35'/%3E%3Crect x='85' y='165' width='25' height='25'/%3E%3Crect x='90' y='170' width='15' height='15'/%3E%3Crect x='95' y='175' width='5' height='5'/%3E%3Crect x='120' y='160' width='75' height='75'/%3E%3Crect x='125' y='165' width='65' height='65'/%3E%3Crect x='130' y='170' width='55' height='55'/%3E%3Crect x='135' y='175' width='45' height='45'/%3E%3Crect x='140' y='180' width='35' height='35'/%3E%3Crect x='145' y='185' width='25' height='25'/%3E%3Crect x='150' y='190' width='15' height='15'/%3E%3Crect x='155' y='195' width='5' height='5'/%3E%3Crect x='160' y='40' width='75' height='75'/%3E%3Crect x='165' y='45' width='65' height='65'/%3E%3Crect x='170' y='50' width='55' height='55'/%3E%3Crect x='175' y='55' width='45' height='45'/%3E%3Crect x='180' y='60' width='35' height='35'/%3E%3Crect x='185' y='65' width='25' height='25'/%3E%3Crect x='190' y='70' width='15' height='15'/%3E%3Crect x='195' y='75' width='5' height='5'/%3E%3Crect x='160' y='120' width='35' height='35'/%3E%3Crect x='165' y='125' width='25' height='25'/%3E%3Crect x='170' y='130' width='15' height='15'/%3E%3Crect x='175' y='135' width='5' height='5'/%3E%3Crect x='200' y='200' width='35' height='35'/%3E%3Crect x='200' width='35' height='35'/%3E%3Crect y='200' width='35' height='35'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: contain;
+    font-variant: small-caps;
 
-button {
+    display: flex;
+    justify-content: space-around;
+
+    align-items: center;
+    z-index: 2;
+    padding: 5px
+  }
+
+  nav.tabs {
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  nav div.is-active {
+    transform: skewY(10deg);
+    transform-origin: left bottom;
+
+  }
+
+  p {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 18px;
+    padding: 16px 16px 8px 16px;
+    cursor: default;
+  }
+
+  table {
+    background-color: transparent;
+  }
+
+  footer {
+    background: #333333;
+    color: #727272;
+    padding: 2rem 4rem;
+    margin-top: auto;
+    z-index: 1;
+    width: 100vw;
+  }
+
+  button {
     font-size: 20px;
     background-color: transparent;
     border: 2px solid #26396b;
     border-radius: 3px;
     padding: 0px 12px;
-   
-    margin-bottom: 2px;   
-}
 
-.abutton {
-  z-index: 1;
-  position: relative;
-  font-size: inherit;
-  font-family: inherit;
-  color: white;
-  padding: 0.5em 1em;
-  outline: none;
-  border: none;
-  background-color: hsl(236, 32%, 26%);
-  overflow: hidden;
-}
-
-.abutton::after {
-  content: '';
-  z-index: -1;
-  background-color: hsla(0, 0%, 100%, 0.2);
-  position: absolute;
-  top: -50%;
-  bottom: -50%;
-  width: 1.25em;
-  transform: translateX(-525%) rotate(35deg);
-}
-
-.abutton:hover {
-  cursor: pointer;
-}
-
-.abutton:hover::after {
-  transition: transform 0.45s ease-in-out;
-  transform: translateX(200%) rotate(35deg);
-}
-
-.tablinks{
-  position: relative;
-}
-
-.bottom-left {
-  position: absolute;
-  bottom: 5px;
-  right: -10px;
-  font-size: 10px;
-  font-family: 'Stylish', sans-serif;
- 
-  writing-mode: vertical-rl;
-}
-
-.individual, footer{
-  font-size: 12px;
-
-}
-
-.tab-content {
-  display: none;
-  
-}
-
-.tab-content.is-active {
-  display: block;
-}
-
-#table1{
-  display: block;
-}
-
-.my-tabs{
-
-}
-#tab-two {
-  width: 96vw;
-
-}
-#tab-one, #tab-zero, #home{
-  width: 100%;
-  margin: 30px 0;
-  padding: 30px 0;
-  
-}
-#home {
-  background-image: url("https://arnold.systems/img/bathroom-home.jpg");
-  min-height: 100vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-attachment: fixed;
-
-}
-#tab-three * {
-  font-family: 'VT323', monospace;
-}
-#tab-three {
- 
-  padding: 30px 0;
-  width: 100vw;
-  margin: 0;
-  min-height: 100vh;
-  background-color: #222222;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 900'%3E%3Cg fill-opacity='0.4'%3E%3Cpath fill='%23590108' d='M2063.4 728c 1344.5 1289.9-3870.2 1289.9-2526.8 0c 163.5-156.9 620.9-240.3 933.9-264.2c 206.9-15.8 451.8-15.8 658.8 0c 313 23.9 770.5 107.3 934.1 264.2z'/%3E%3Cpath fill='%2341151b' d='M1843.9 691.6c 280.4 588.3-2367.8 588.3-2087.8 0c 60-126.1 442.8-201.9 731.6-224.9c 195.1-15.6 429.4-15.6 624.5 0c 288.7 23 671.6 98.8 731.7 224.9z'/%3E%3Cpath fill='%234a1f24' d='M1665 662c-30 336.6-1699.8 336.6-1730 0c-9.1-101.7 306.7-170.2 570.9-192.2c 182.7-15.3 405.4-15.3 588.1 0c 264.1 22 580 90.5 571 192.2z'/%3E%3Cpath fill='%23642f33' d='M1516.4 637.3c-139.4 212.9-1293.2 212.9-1432.8 0c-53.7-82 202.4-143.4 441.6-164.4c 169.6-14.9 379.8-14.9 549.4 0c 239.2 21 495.4 82.4 441.8 164.4z'/%3E%3Cpath fill='%23654b50' d='M1390.9 616.5c-173.4 142.1-1008.4 142.1-1181.9 0c-80.5-65.9 122.9-120.4 336.9-140.2c 155.8-14.4 352.3-14.4 508 0c 214 19.8 417.5 74.3 337 140.2z'/%3E%3Cpath fill='%2394464a' d='M1283.7 598.7c-174.4 97.6-793 97.6-967.4 0c-94-52.6 63.2-100.3 251.7-118.7c 141.1-13.7 322.7-13.7 463.8 0c 188.5 18.4 345.8 66.1 251.9 118.7z'/%3E%3Cpath fill='%23895f62' d='M1190.9 583.3c-159.9 68-621.9 68-781.8 0c-97.6-41.5 19.8-82.6 182.7-99.4c 125.6-12.9 290.8-12.9 416.4 0c 162.8 16.8 280.2 57.9 182.7 99.4z'/%3E%3Cpath fill='%23a67678' d='M1109.8 569.9c-138.1 47.3-481.5 47.3-619.7 0c-93.7-32.1-10.1-66.7 127.1-81.7c 109.3-12 256.2-12 365.5 0c 137.1 15 220.7 49.6 127.1 81.7z'/%3E%3Cpath fill='%23bf7f82' d='M1038.4 558c-113.2 32.5-363.7 32.5-476.9 0c-84-24.1-28.4-52.3 83.1-65.3c 91.9-10.7 218.7-10.7 310.6 0c 111.5 13 167.2 41.2 83.2 65.3z'/%3E%3Cpath fill='%23bdb0b2' d='M975 547.5c-87.1 21.5-263 21.5-350.1 0c-70.1-17.3-36.5-39.2 49.4-49.9c 73.5-9.2 177.9-9.2 251.3 0c 85.9 10.8 119.5 32.6 49.4 49.9z'/%3E%3Cpath fill='%23db999a' d='M918.3 538.1c-61.2 13.3-175.6 13.3-236.8 0c-52.8-11.4-35.8-27 24.8-35.2c 53.9-7.2 133.1-7.2 187.1 0c 60.6 8.2 77.7 23.8 24.9 35.2z'/%3E%3Cpath fill='%23deb9ba' d='M867.4 529.7c-35.9 6.9-99 6.9-134.9 0c-33.1-6.4-26.9-15.7 8.9-20.9c 33.3-4.8 83.9-4.8 117.2 0c 35.7 5.2 41.8 14.5 8.8 20.9z'/%3E%3Cpath fill='%23fcf4f4' d='M821.3 522c-11.7 2-31.1 2-42.8 0c-11.4-2-10.7-5.1 1-6.9c 11.4-1.8 29.5-1.8 40.8 0c 11.7 1.8 12.4 4.9 1 6.9z'/%3E%3C/g%3E%3C/svg%3E");
-  background-attachment: fixed;
-  background-size: cover;
-  color: #f7f7f7;
-}
-
-.flex-container{
-  display: flex;
-  flex-flow: row no-wrap;
-  justify-content: center;
-  height: ;
-  align-items: center;
-  z-index: 2;
-}
-.tab-content {
-  display: none;
-  padding: 0;
-}
-
-.button-link{
-  box-shadow: 0;
-  
-}
-.button {
-  cursor: pointer;
-  border: 0;
-  background: #ac1;
-  color: white;
-  padding 1.5em 2em;
-  position: relative;
-  z-index: 1;
-}
-
-.button + .button {
-  margin-left: 1em;
-}
-
-.button::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  z-index: -1;
-  transition: transform 200ms ease-in;
-}
-
-.button-one::after{
-  transform: scale(0);
-  
-  transform-origin: top right;
-  
-}
-
-.button-one:hover::after{
-  transform: scale(1);
-  transform-origin: left;
- 
-}
-
-.card{
-  padding: 2rem;
-  background-image: url('https://arnold.systems/img/oak-grove.jpg');
-  background-size: cover;
-  background-color: #444;
-  background-blend-mode: multiply;
-  color: white;
-  text-align: left;
-  
-}
-
-.card__title{
-  position: relative;
-  z-index: 1;
-  display: inline-block;
-  margin-bottom: 1rem;
-}
-
-.card__title::after {
-  content: "";
-  position: absolute;
-  top: -0.25rem;
-  left: -2rem;
-  bottom: -0.25rem;
-  width: calc(100% + 4rem);
-  background: #26396b;
-  z-index: -1;
-  
-  transform: scaleX(0.075);
-  transform-origin: left;
-  transition: transform 250ms ease-in;
-  transition-delay: 250ms;
-}
-
-.card:hover .card__title::after {
-  transform: scaleX(1);
-  transition-delay: 0ms;  
-}
-
-.card__body, .card__body > a{
-  position: relative;
-  color: transparent;
-  z-index: 1;
-  margin: 0;
-  transition: color 150ms;
-  
-}
-.card:hover .card__body, .card:hover .card__body > a {
-  transition-delay: 350ms;
-}
-
-.card__body::after {
-  content: "";
-  position: absolute;
-  
-  top: -0.75rem;
-  bottom: -0.75rem;
-  left: -0.75rem;
-  right: -0.75rem;
-  background: white;
-  z-index: -1;
-  transform: scaleY(0);
-  transition: transform 250ms ease-in;
-  transform-origin: top;
-  
-  z-index: -1;
-  
-}
-
-.card:hover .card__body {
-  color: #333;
-}
-
-.card:hover .card__body > a {
-  color: #247;
-
-}
-
-.card:hover .card__body::after {
-  transition-delay: 250ms;
-  transform: scaleY(1);
-  
-}
-
-.stat-pic{
-  
-  border: 3px ridge #a2a2a2;
-  margin: auto;
-  min-width: 230px;
-  max-width: 315px;
-  opacity: 0.8;
-}
-
-.stat-sheet{
-  background-color: #f5f5f5;
-  background-image:
-    linear-gradient(90deg, transparent 14px, #fbf 14px, #fbf 15px, transparent 14px),
-    linear-gradient(#eef .1em, transparent .1em);
-  background-size: 100% 1.1em;
-  padding:15px;
-  max-width: 600px;
-  
-}
-
-.snip1507 {
- 
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  min-width: 230px;
-  max-width: 315px;
-  color: #ffffff;
-  text-align: left;
-  font-size: 16px;
-  background-color:rgba(0,0,0,0.2);
-  margin: 10px auto;
-}
-
-
-.snip1507 img {
-  vertical-align: top;
-  max-width: 100%;
-  backface-visibility: hidden;
-  -webkit-filter: sepia(100%) blur(15px);
-  filter: sepia(100%) blur(15px);
-  opacity: 0.75;
-}
-
-.snip1507 figcaption {
-  z-index: 1;
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: rgba(195, 86, 97, 0.85);
-  background-image: -webkit-linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
-  background-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
-  padding: 20px;
-  font-family: 'Stylish', sans-serif;
-}
-
-.snip1507 figcaption:before {
-  content: '';
-  width: 20px;
-  height: 20px;
-  border: 3px ridge #a2a2a2;
-  background-color: rgb(155,34,84,1);
-  
-  top: 0;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%) rotate(45deg);
-  transform: translate(-50%, -50%) rotate(45deg);
-  position: absolute;
-}
-
-.snip1507 h3,
-.snip1507 h5 {
-  margin: 0;
-  letter-spacing: 1px;
-}
-
-.snip1507 h3 {
-
-  font-size: 20px;
-  font-variant: small-caps;
-
-  
-}
-
-.snip1507 h5 {
- 
-  font-weight: normal;
-  font-size: 12px;
-}
-
-.snip1507 a {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
-
-.snip1507:hover > img,
-.snip1507.hover > img {
-  opacity: 1;
-  -webkit-filter: sepia(0%) blur(0px);
-  filter: sepia(0%) blur(0px);
-}
-
-
-
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
-}
-
-/* Style the buttons that are used to open and close the accordion panel */
-.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 20px 0;
-  max-width: 500px;
-  min-width: 100vw;
- 
-  border: none;
-  outline: none;
-  transition: 0.4s;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .accordion:hover {
-  background-color: #ccc;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-.panel {
-  padding: 0;
-  background-color: transparent;
-  display: none;
-  overflow: hidden;
-}
-.tag{
-
-  -webkit-transform: translate(-60%, -60%) rotate(30deg);
-  transform: translate(-60%, -60%) rotate(30deg);
-  position: absolute;
-  border: 5px double #eee;
-}
-
-.title{
-  font-size: 3rem;
-  font-family: 'Cabin Sketch', cursive;
-}
-
-.fancy-link {
-  text-decoration: none;
-  color: #26396b;
-  position: relative;
-}
-
-.fancy-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background: currentColor;
-  
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 250ms ease-in;
-  
-}
-.fancy-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 10; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0px;
-  border: 1px solid #888;
-  width: 90%;
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-#one ul, #one ul li, #one ul li a, #one ul li a span {
-  font-size: 12px;
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 3px;
-}
-
-.tool{
-  position:absolute;
-  right:0;
-  bottom:18px
-}
-
-
-.dots {
-  width: 3em;
-  height: 3em;
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
-}
-
-.dots > div {
-  width: 0.5em;
-  height: 0.5em;
-  background-color: #3cefff;
-  border-radius: 50%;
-  animation: fade 1.5s alternate ease-in-out infinite;
-}
-
-
-<!-- Loading Dots from https://cssfx.dev/ -->
-.dots > div:nth-of-type(2),
-.dots > div:nth-of-type(4) {
-  animation-delay: 0.25s;
-}
-
-.dots > div:nth-of-type(3),
-.dots > div:nth-of-type(5),
-.dots > div:nth-of-type(7) {
-  animation-delay: 0.5s;
-}
-
-.dots > div:nth-of-type(6),
-.dots > div:nth-of-type(8) {
-  animation-delay: 0.75s;
-}
-
-.dots > div:nth-of-type(9) {
-  animation-delay: 1s;
-}
-
-@keyframes fade {
-  to {
-    opacity: 0.2;
+    margin-bottom: 2px;
   }
-}
+
+  .abutton {
+    z-index: 1;
+    position: relative;
+    font-size: inherit;
+    font-family: inherit;
+    color: white;
+    padding: 0.1em .2em;
+    outline: none;
+    border: none;
+    background-color: hsl(236, 32%, 26%);
+    overflow: hidden;
+  }
+
+  .abutton::after {
+    content: '';
+    z-index: -1;
+    background-color: hsla(0, 0%, 100%, 0.2);
+    position: absolute;
+    top: -50%;
+    bottom: -50%;
+    width: 1.25em;
+    transform: translateX(-525%) rotate(35deg);
+  }
+
+  .abutton:hover {
+    cursor: pointer;
+  }
+
+  .abutton:hover::after {
+    transition: transform 0.45s ease-in-out;
+    transform: translateX(200%) rotate(35deg);
+  }
+
+  .tablinks {
+    position: relative;
+  }
+
+  .bottom-left {
+    position: absolute;
+    bottom: 5px;
+    right: -10px;
+    font-size: 10px;
+    font-family: 'Stylish', sans-serif;
+
+    writing-mode: vertical-rl;
+  }
+
+  .individual,
+  footer {
+    font-size: 12px;
+
+  }
+
+  .tab-content {
+    display: none;
+
+  }
+
+  .tab-content.is-active {
+    display: block;
+  }
+
+  #table1 {
+    display: block;
+  }
 
 
+
+  #tab-two {
+    width: 96vw;
+
+  }
+
+  #tab-one,
+  #tab-zero,
+  #home {
+    width: 100%;
+    margin: 30px 0;
+    padding: 30px 0;
+
+  }
+
+  #home {
+    background-image: url("https://arnold.systems/img/bathroom-home.jpg");
+    min-height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-attachment: fixed;
+
+  }
+
+  #tab-three * {
+    font-family: 'VT323', monospace;
+  }
+
+  #tab-three {
+
+    padding: 30px 0;
+    width: 100vw;
+    margin: 0;
+    min-height: 100vh;
+    background-blend-mode: darken;
+    background-color: #222222da;
+    background-image: url("https://arnold.systems/img/bathroom-home.jpg") ;
+    
+    font-size: 20px;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #f7f7f7;
+  
+  }
+
+  .flex-container {
+    display: flex;
+    flex-flow: row no-wrap;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .tab-content {
+    display: none;
+    padding: 0;
+  }
+
+  .button-link {
+    box-shadow: 0;
+
+  }
+
+  .button {
+    cursor: pointer;
+    border: 0;
+    background: #ac1;
+    color: white;
+    padding: 1.5em 2em;
+    position: relative;
+    z-index: 1;
+  }
+
+  .button+.button {
+    margin-left: 1em;
+  }
+
+  .button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    transition: transform 200ms ease-in;
+  }
+
+  .button-one::after {
+    transform: scale(0);
+
+    transform-origin: top right;
+
+  }
+
+  .button-one:hover::after {
+    transform: scale(1);
+    transform-origin: left;
+
+  }
+
+  .card {
+    padding: 2rem;
+    background-image: url('https://arnold.systems/img/oak-grove.jpg');
+    background-size: cover;
+    background-color: #444;
+    background-blend-mode: multiply;
+    color: white;
+    text-align: left;
+
+  }
+
+  .card__title {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .card__title::after {
+    content: "";
+    position: absolute;
+    top: -0.25rem;
+    left: -2rem;
+    bottom: -0.25rem;
+    width: calc(100% + 4rem);
+    background: #26396b;
+    z-index: -1;
+
+    transform: scaleX(0.075);
+    transform-origin: left;
+    transition: transform 250ms ease-in;
+    transition-delay: 250ms;
+  }
+
+  .card:hover .card__title::after {
+    transform: scaleX(1);
+    transition-delay: 0ms;
+  }
+
+  .card__body,
+  .card__body>a {
+    position: relative;
+    color: transparent;
+    z-index: 1;
+    margin: 0;
+    transition: color 150ms;
+
+  }
+
+  .card:hover .card__body,
+  .card:hover .card__body>a {
+    transition-delay: 350ms;
+  }
+
+  .card__body::after {
+    content: "";
+    position: absolute;
+
+    top: -0.75rem;
+    bottom: -0.75rem;
+    left: -0.75rem;
+    right: -0.75rem;
+    background: white;
+    z-index: -1;
+    transform: scaleY(0);
+    transition: transform 250ms ease-in;
+    transform-origin: top;
+
+    z-index: -1;
+
+  }
+
+  .card:hover .card__body {
+    color: #333;
+  }
+
+  .card:hover .card__body>a {
+    color: #247;
+
+  }
+
+  .card:hover .card__body::after {
+    transition-delay: 250ms;
+    transform: scaleY(1);
+
+  }
+
+  .stat-pic {
+
+    border: 3px ridge #a2a2a2;
+    margin: auto;
+    min-width: 230px;
+    max-width: 315px;
+    opacity: 0.8;
+  }
+
+  .stat-sheet {
+    background-color: #f5f5f5;
+    background-image:
+      linear-gradient(90deg, transparent 14px, #fbf 14px, #fbf 15px, transparent 14px),
+      linear-gradient(#eef .1em, transparent .1em);
+    background-size: 100% 1.1em;
+    padding: 15px;
+    max-width: 600px;
+
+  }
+
+  .snip1507 {
+
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    min-width: 230px;
+    max-width: 315px;
+    color: #ffffff;
+    text-align: left;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 10px auto;
+  }
+
+
+  .snip1507 img {
+    vertical-align: top;
+    max-width: 100%;
+    backface-visibility: hidden;
+    -webkit-filter: sepia(100%) blur(15px);
+    filter: sepia(100%) blur(15px);
+    opacity: 0.75;
+  }
+
+  .snip1507 figcaption {
+    z-index: 1;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(195, 86, 97, 0.85);
+    background-image: -webkit-linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
+    padding: 20px;
+    font-family: 'Stylish', sans-serif;
+  }
+
+  .snip1507 figcaption:before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 3px ridge #a2a2a2;
+    background-color: rgb(155, 34, 84, 1);
+
+    top: 0;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
+    position: absolute;
+  }
+
+  .snip1507 h3,
+  .snip1507 h5 {
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  .snip1507 h3 {
+
+    font-size: 20px;
+    font-variant: small-caps;
+
+
+  }
+
+  .snip1507 h5 {
+
+    font-weight: normal;
+    font-size: 12px;
+  }
+
+  .snip1507 a {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  .snip1507:hover>img,
+  .snip1507.hover>img {
+    opacity: 1;
+    -webkit-filter: sepia(0%) blur(0px);
+    filter: sepia(0%) blur(0px);
+  }
+
+
+
+  input:focus,
+  select:focus,
+  textarea:focus,
+  button:focus {
+    outline: none;
+  }
+
+  /* Style the buttons that are used to open and close the accordion panel */
+  .accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 20px 0;
+    max-width: 500px;
+    min-width: 100vw;
+
+    border: none;
+    outline: none;
+    transition: 0.4s;
+  }
+
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active,
+  .accordion:hover {
+    background-color: #ccc;
+  }
+
+  /* Style the accordion panel. Note: hidden by default */
+  .panel {
+    padding: 0;
+    background-color: transparent;
+    display: none;
+    overflow: hidden;
+  }
+
+  .tag {
+
+    -webkit-transform: translate(-60%, -60%) rotate(30deg);
+    transform: translate(-60%, -60%) rotate(30deg);
+    position: absolute;
+    border: 5px double #eee;
+  }
+
+  .title {
+    font-size: 3rem;
+    font-family: 'Cabin Sketch', cursive;
+  }
+
+  .fancy-link {
+    text-decoration: none;
+    color: #26396b;
+    position: relative;
+  }
+
+  .fancy-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 250ms ease-in;
+
+  }
+
+  .fancy-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* The Modal (background) */
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 10;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 90%;
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #one ul,
+  #one ul li,
+  #one ul li a,
+  #one ul li a span {
+    font-size: 12px;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 3px;
+  }
+
+  .tool {
+    position: absolute;
+    right: 0;
+    bottom: 18px
+  }
+
+  .dots {
+    width: 3em;
+    height: 3em;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+  }
+
+  .dots>div {
+    width: 0.5em;
+    height: 0.5em;
+    background-color: #3cefff;
+    border-radius: 50%;
+    animation: fade 1.5s alternate ease-in-out infinite;
+  }
+
+
+  /*< !-- Loading Dots from https: //cssfx.dev/ -->*/
+
+  .dots>div:nth-of-type(2),
+  .dots>div:nth-of-type(4) {
+    animation-delay: 0.25s;
+  }
+
+  .dots>div:nth-of-type(3),
+  .dots>div:nth-of-type(5),
+  .dots>div:nth-of-type(7) {
+    animation-delay: 0.5s;
+  }
+
+  .dots>div:nth-of-type(6),
+  .dots>div:nth-of-type(8) {
+    animation-delay: 0.75s;
+  }
+
+  .dots>div:nth-of-type(9) {
+    animation-delay: 1s;
+  }
+
+  @keyframes fade {
+    to {
+      opacity: 0.2;
+    }
+  }
 </style>
